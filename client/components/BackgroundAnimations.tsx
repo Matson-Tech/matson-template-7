@@ -16,43 +16,30 @@ export default function BackgroundAnimations() {
   useEffect(() => {
     const generateElements = () => {
       const newElements: FloatingElement[] = [];
-      
-      // Generate rose petals
-      for (let i = 0; i < 15; i++) {
+
+      // Generate fewer rose petals - only 4
+      for (let i = 0; i < 4; i++) {
         newElements.push({
           id: i,
           x: Math.random() * 100,
           y: Math.random() * 100,
-          size: Math.random() * 20 + 10,
-          duration: Math.random() * 20 + 15,
+          size: Math.random() * 12 + 14,
+          duration: Math.random() * 15 + 20,
           delay: Math.random() * 10,
           type: 'petal'
         });
       }
 
-      // Generate sparkles
-      for (let i = 15; i < 35; i++) {
+      // Generate fewer sparkles - only 3
+      for (let i = 4; i < 7; i++) {
         newElements.push({
           id: i,
           x: Math.random() * 100,
           y: Math.random() * 100,
-          size: Math.random() * 8 + 3,
-          duration: Math.random() * 15 + 10,
-          delay: Math.random() * 8,
-          type: 'sparkle'
-        });
-      }
-
-      // Generate hearts
-      for (let i = 35; i < 45; i++) {
-        newElements.push({
-          id: i,
-          x: Math.random() * 100,
-          y: Math.random() * 100,
-          size: Math.random() * 15 + 8,
-          duration: Math.random() * 25 + 20,
+          size: Math.random() * 6 + 8,
+          duration: Math.random() * 10 + 15,
           delay: Math.random() * 12,
-          type: 'heart'
+          type: 'sparkle'
         });
       }
 
