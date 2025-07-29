@@ -1,7 +1,22 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { Search, Instagram } from "lucide-react";
+import { WeddingContext } from "@/context/WeddingContext";
+import { Button } from "@/components/ui/button";
+import { Search, Instagram, LogOut, LogIn } from "lucide-react";
 
 export default function Navigation() {
+  const context = useContext(WeddingContext);
+
+  if (!context) {
+    throw new Error("Navigation must be used within WeddingProvider");
+  }
+
+  const { isLoggedIn, logout } = context;
+
+  const handleLogout = async () => {
+    await logout();
+  };
+
   return (
     <nav className="w-full bg-blush-50/80 backdrop-blur-sm border-b border-blush-200 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -57,6 +72,25 @@ export default function Navigation() {
             <button className="text-foreground hover:text-rose-600 transition-colors duration-200">
               <Instagram className="h-5 w-5" />
             </button>
+
+            {isLoggedIn ? (
+              <Button
+                onClick={handleLogout}
+                variant="ghost"
+                size="sm"
+                className="flex items-center gap-2"
+              >
+                <LogOut className="h-4 w-4" />
+                Logout
+              </Button>
+            ) : (
+              <Button asChild variant="ghost" size="sm" className="flex items-center gap-2">
+                <Link to="/login">
+                  <LogIn className="h-4 w-4" />
+                  Login
+                </Link>
+              </Button>
+            )}
           </div>
 
           {/* Mobile menu button */}
