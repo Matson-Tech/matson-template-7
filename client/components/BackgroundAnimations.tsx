@@ -55,12 +55,10 @@ export default function BackgroundAnimations() {
       {elements.map((element) => (
         <div
           key={element.id}
-          className={`absolute opacity-20 ${
-            element.type === 'petal' 
-              ? 'text-rose-400' 
-              : element.type === 'sparkle' 
-              ? 'text-yellow-300' 
-              : 'text-pink-400'
+          className={`absolute opacity-10 ${
+            element.type === 'petal'
+              ? 'text-rose-300'
+              : 'text-yellow-200'
           }`}
           style={{
             left: `${element.x}%`,
