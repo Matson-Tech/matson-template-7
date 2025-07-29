@@ -114,6 +114,11 @@ export default {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "float": "float 6s ease-in-out infinite",
+        "float-slow": "float 8s ease-in-out infinite",
+        "twinkle": "twinkle 2s ease-in-out infinite",
+        "drift": "drift 15s linear infinite",
+        "pulse-gentle": "pulse-gentle 4s ease-in-out infinite",
       },
     },
   },
