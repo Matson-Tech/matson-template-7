@@ -73,13 +73,8 @@ export default function BackgroundAnimations() {
         </div>
       ))}
 
-      {/* Gradient overlay animations */}
-      <div className="absolute inset-0 bg-gradient-to-br from-rose-50/10 via-transparent to-blush-50/10 animate-pulse-slow"></div>
-      
-      {/* Subtle moving waves */}
-      <div className="absolute bottom-0 left-0 w-full h-32 overflow-hidden">
-        <div className="absolute bottom-0 left-0 w-[200%] h-full bg-gradient-to-r from-transparent via-rose-100/20 to-transparent animate-wave"></div>
-      </div>
+      {/* Subtle gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-rose-50/5 via-transparent to-blush-50/5 animate-pulse-slow"></div>
 
       <style jsx>{`
         @keyframes float-petal {
