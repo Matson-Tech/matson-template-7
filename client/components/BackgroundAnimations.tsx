@@ -70,7 +70,6 @@ export default function BackgroundAnimations() {
         >
           {element.type === 'petal' && '🌸'}
           {element.type === 'sparkle' && '✨'}
-          {element.type === 'heart' && '💕'}
         </div>
       ))}
 
