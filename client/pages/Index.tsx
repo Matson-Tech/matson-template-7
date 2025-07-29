@@ -74,7 +74,7 @@ export default function Index() {
       
       {/* Hero Section */}
       <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <div 
+        <div
           className="absolute inset-0 z-0"
           style={{
             backgroundImage: `url(${weddingData.couple.image})`,
@@ -84,6 +84,32 @@ export default function Index() {
           }}
         >
           <div className="absolute inset-0 bg-black/20"></div>
+
+          {/* Additional hero decorations */}
+          <div className="absolute inset-0 pointer-events-none">
+            {/* Floating sparkles specific to hero */}
+            {Array.from({ length: 15 }, (_, i) => (
+              <div
+                key={`hero-sparkle-${i}`}
+                className="absolute text-white/60 animate-pulse"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                  fontSize: `${Math.random() * 12 + 8}px`,
+                  animationDelay: `${Math.random() * 3}s`,
+                  animationDuration: `${Math.random() * 2 + 2}s`,
+                }}
+              >
+                ✨
+              </div>
+            ))}
+
+            {/* Elegant border animations */}
+            <div className="absolute top-10 left-10 w-20 h-20 border-l-2 border-t-2 border-white/30 animate-pulse"></div>
+            <div className="absolute top-10 right-10 w-20 h-20 border-r-2 border-t-2 border-white/30 animate-pulse" style={{ animationDelay: '1s' }}></div>
+            <div className="absolute bottom-10 left-10 w-20 h-20 border-l-2 border-b-2 border-white/30 animate-pulse" style={{ animationDelay: '2s' }}></div>
+            <div className="absolute bottom-10 right-10 w-20 h-20 border-r-2 border-b-2 border-white/30 animate-pulse" style={{ animationDelay: '3s' }}></div>
+          </div>
         </div>
         
         <div className="relative z-10 text-center text-white px-4">
