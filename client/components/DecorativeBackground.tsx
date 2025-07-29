@@ -112,81 +112,9 @@ export default function DecorativeBackground() {
         <div className="absolute inset-0 bg-gradient-to-br from-rose-50/20 via-transparent to-cream-100/20 gradient-overlay"></div>
         <div className="absolute inset-0 bg-gradient-to-tr from-blush-50/15 via-transparent to-rose-100/15 gradient-overlay" style={{ animationDelay: '-3s' }}></div>
 
-        {/* Floating rose petals */}
-        {Array.from({ length: 12 }, (_, i) => (
-          <div
-            key={`petal-${i}`}
-            className="absolute petal-element text-rose-300/40"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              fontSize: `${Math.random() * 15 + 12}px`,
-              animationDelay: `${Math.random() * -20}s`,
-            }}
-          >
-            🌸
-          </div>
-        ))}
-
-        {/* Floating hearts */}
-        {Array.from({ length: 8 }, (_, i) => (
-          <div
-            key={`heart-${i}`}
-            className="absolute heart-element text-pink-300/30"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              fontSize: `${Math.random() * 12 + 10}px`,
-              animationDelay: `${Math.random() * -8}s`,
-            }}
-          >
-            💕
-          </div>
-        ))}
-
-        {/* Sparkle effects */}
-        {Array.from({ length: 20 }, (_, i) => (
-          <div
-            key={`sparkle-${i}`}
-            className="absolute sparkle-element text-yellow-200/50"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              fontSize: `${Math.random() * 8 + 6}px`,
-              animationDelay: `${Math.random() * -3}s`,
-            }}
-          >
-            ✨
-          </div>
-        ))}
-
-        {/* Decorative ribbons */}
-        <div className="absolute top-1/4 w-full h-px bg-gradient-to-r from-transparent via-rose-200/30 to-transparent ribbon-decoration"></div>
-        <div className="absolute top-3/4 w-full h-px bg-gradient-to-r from-transparent via-blush-200/30 to-transparent ribbon-decoration" style={{ animationDelay: '-15s' }}></div>
-
-        {/* Corner decorative elements */}
-        <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-radial from-rose-100/20 to-transparent floating-decoration"></div>
-        <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-radial from-blush-100/20 to-transparent floating-decoration" style={{ animationDelay: '-3s' }}></div>
-        <div className="absolute bottom-0 left-0 w-36 h-36 bg-gradient-radial from-cream-100/20 to-transparent floating-decoration" style={{ animationDelay: '-6s' }}></div>
-        <div className="absolute bottom-0 right-0 w-28 h-28 bg-gradient-radial from-rose-100/20 to-transparent floating-decoration" style={{ animationDelay: '-9s' }}></div>
-
-        {/* Subtle geometric patterns */}
-        <div className="absolute inset-0">
-          {Array.from({ length: 6 }, (_, i) => (
-            <div
-              key={`geo-${i}`}
-              className="absolute border border-rose-200/10 rounded-full floating-decoration"
-              style={{
-                left: `${Math.random() * 80 + 10}%`,
-                top: `${Math.random() * 80 + 10}%`,
-                width: `${Math.random() * 100 + 50}px`,
-                height: `${Math.random() * 100 + 50}px`,
-                animationDelay: `${Math.random() * -12}s`,
-                animationDuration: `${Math.random() * 10 + 15}s`,
-              }}
-            />
-          ))}
-        </div>
+        {/* Minimal corner decorative elements */}
+        <div className="absolute top-0 left-0 w-24 h-24 bg-gradient-radial from-rose-100/10 to-transparent floating-decoration"></div>
+        <div className="absolute bottom-0 right-0 w-24 h-24 bg-gradient-radial from-rose-100/10 to-transparent floating-decoration" style={{ animationDelay: '-6s' }}></div>
       </div>
     </>
   );
