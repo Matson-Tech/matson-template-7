@@ -13,7 +13,37 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        'script': ['Dancing Script', 'cursive'],
+        'serif': ['Playfair Display', 'serif'],
+        'sans': ['Inter', 'system-ui', 'sans-serif'],
+      },
       colors: {
+        // Wedding theme colors
+        blush: {
+          50: "hsl(var(--blush-50))",
+          100: "hsl(var(--blush-100))",
+          200: "hsl(var(--blush-200))",
+          300: "hsl(var(--blush-300))",
+          400: "hsl(var(--blush-400))",
+          500: "hsl(var(--blush-500))",
+          600: "hsl(var(--blush-600))",
+        },
+        rose: {
+          50: "hsl(var(--rose-50))",
+          100: "hsl(var(--rose-100))",
+          200: "hsl(var(--rose-200))",
+          300: "hsl(var(--rose-300))",
+          400: "hsl(var(--rose-400))",
+          500: "hsl(var(--rose-500))",
+          600: "hsl(var(--rose-600))",
+        },
+        cream: {
+          50: "hsl(var(--cream-50))",
+          100: "hsl(var(--cream-100))",
+          200: "hsl(var(--cream-200))",
+        },
+        // Keep existing system colors
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
