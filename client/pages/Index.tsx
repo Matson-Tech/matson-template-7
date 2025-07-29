@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { WeddingContext } from "@/context/WeddingContext";
 import EditableText from "@/components/EditableText";
 import Navigation from "@/components/Navigation";
+import BackgroundAnimations from "@/components/BackgroundAnimations";
+import DecorativeBackground from "@/components/DecorativeBackground";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
