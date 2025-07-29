@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
 @layer base {
   /**
    * Tailwind CSS theme
@@ -9,51 +11,66 @@
    * A different format will require also updating the theme in tailwind.config.ts.
   */
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Wedding theme colors */
+    --blush-50: 15 100% 97%;
+    --blush-100: 15 100% 94%;
+    --blush-200: 15 100% 89%;
+    --blush-300: 15 100% 82%;
+    --blush-400: 15 100% 74%;
+    --blush-500: 15 100% 65%;
+    --blush-600: 15 100% 55%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --rose-50: 350 100% 97%;
+    --rose-100: 350 100% 94%;
+    --rose-200: 350 100% 87%;
+    --rose-300: 350 100% 80%;
+    --rose-400: 350 100% 70%;
+    --rose-500: 350 100% 60%;
+    --rose-600: 350 100% 50%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --cream-50: 30 50% 98%;
+    --cream-100: 30 50% 95%;
+    --cream-200: 30 50% 90%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Updated system colors with wedding theme */
+    --background: 15 100% 97%;
+    --foreground: 340 25% 25%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --card: 15 100% 97%;
+    --card-foreground: 340 25% 25%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --popover: 15 100% 97%;
+    --popover-foreground: 340 25% 25%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --primary: 350 100% 60%;
+    --primary-foreground: 15 100% 97%;
+
+    --secondary: 30 50% 95%;
+    --secondary-foreground: 340 25% 25%;
+
+    --muted: 30 50% 95%;
+    --muted-foreground: 340 15% 55%;
+
+    --accent: 15 100% 94%;
+    --accent-foreground: 340 25% 25%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 30 50% 90%;
+    --input: 30 50% 90%;
+    --ring: 350 100% 60%;
 
     --radius: 0.5rem;
 
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 15 100% 97%;
+    --sidebar-foreground: 340 25% 25%;
+    --sidebar-primary: 350 100% 60%;
+    --sidebar-primary-foreground: 15 100% 97%;
+    --sidebar-accent: 15 100% 94%;
+    --sidebar-accent-foreground: 340 25% 25%;
+    --sidebar-border: 30 50% 90%;
+    --sidebar-ring: 350 100% 60%;
   }
 
   .dark {
