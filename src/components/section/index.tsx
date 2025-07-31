@@ -1,0 +1,9 @@
+export { default as AdditionalInfoSection } from "./AdditionalInfoSection";
+export { default as ContactSection } from "./ContactSection";
+export { default as GallerySection } from "./GallerySection";
+export { default as GuestWishesSection } from "./GuestWishesSection";
+export { default as HeroSection } from "./HeroSection";
+export { default as JewellerSection } from "./JewellerSection";
+export { default as OurStorySection } from "./OurStorySection";
+export { default as ScheduleSection } from "./ScheduleSection";
+export { default as WeddingDetailsSection } from "./WeddingDetailsSection";

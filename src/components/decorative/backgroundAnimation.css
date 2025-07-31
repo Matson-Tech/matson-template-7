@@ -1,0 +1,82 @@
+/* File: src/components/decorative/backgroundAnimation.css */
+
+.floating-element {
+    position: absolute;
+    animation: float 30s ease-in-out infinite;
+    opacity: 0.7;
+    font-size: 1.5rem;
+    pointer-events: none;
+}
+
+.floating-element.petal {
+    color: rgba(255, 192, 203, 0.6);
+    text-shadow:
+        0 0 6px #ffb6c1,
+        0 0 12px #ff69b4;
+}
+
+.floating-element.sparkle {
+    color: rgba(240, 248, 255, 0.85);
+    text-shadow:
+        0 0 5px #e0ffff,
+        0 0 10px #87cefa;
+}
+
+.floating-element.heart {
+    color: rgba(255, 105, 180, 0.75);
+    text-shadow:
+        0 0 6px #ff69b4,
+        0 0 14px #db7093;
+}
+
+.floating-element::before {
+    content: "✦";
+    display: inline-block;
+}
+
+.floating-element.petal::before {
+    content: "❀";
+}
+
+.floating-element.heart::before {
+    content: "❤";
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.6;
+    }
+    50% {
+        transform: translateY(-30vh) rotate(180deg);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(-60vh) rotate(360deg);
+        opacity: 0.5;
+    }
+}
+
+/* Elegant glowing backdrop */
+.bg-overlay {
+    background: radial-gradient(
+        circle at center,
+        rgba(255, 255, 255, 0.015),
+        transparent 70%
+    );
+}
+
+/* Slower, subtle pulsing glow */
+.animate-pulse-slow {
+    animation: pulse 15s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%,
+    100% {
+        opacity: 0.4;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
