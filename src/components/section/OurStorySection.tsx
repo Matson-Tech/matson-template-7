@@ -3,6 +3,7 @@ import EditableText from "@/components/editable/EditableText";
 import { WeddingContext } from "@/context/WeddingContext";
 import useWedding from "@/hooks/useWedding";
 import useUpdateStory from "@/hooks/useUpdateStory";
+import EditableImage from "../editable/EditableImage";
 
 const OurStorySection: React.FC = () => {
     const context = useContext(WeddingContext);
@@ -35,11 +36,16 @@ const OurStorySection: React.FC = () => {
                         />
                     </div>
                     <div className="relative grow max-w-lg">
-                        <img
-                            src={weddingData.story.image}
-                            alt="Our Story"
-                            className="w-full h-96 object-cover rounded-lg shadow-lg"
-                        />
+                        <EditableImage
+                            onUpdate={updateStoryImage}
+                            className="rounded-lg"
+                        >
+                            <img
+                                src={weddingData.story.image}
+                                alt="Our Story"
+                                className="w-full h-96 object-cover rounded-lg shadow-lg"
+                            />
+                        </EditableImage>
                     </div>
                 </div>
             </div>

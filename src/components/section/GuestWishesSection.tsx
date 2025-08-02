@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import useWedding from "@/hooks/useWedding";
-import WishForm from "../custom/WishForm";
 import WishCard from "../custom/WishCard";
+import WishForm from "../custom/WishForm";
 
 const GuestWishesSection: React.FC = () => {
     const { weddingWishes } = useWedding();

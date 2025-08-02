@@ -1,19 +1,10 @@
-import { useContext } from "react";
-import { WeddingContext } from "@/context/WeddingContext";
+import useWedding from "@/hooks/useWedding";
 import EventCard from "../custom/EventCard";
-import ToKnowCard from "../custom/ToKnowCard";
 import Heading from "../custom/Heading";
+import ToKnowCard from "../custom/ToKnowCard";
 
 const WeddingDetailsSection: React.FC = () => {
-    const context = useContext(WeddingContext);
-
-    if (!context) {
-        throw new Error(
-            "WeddingDetailsSection must be used within WeddingProvider",
-        );
-    }
-
-    const { weddingData } = context;
+    const { weddingData } = useWedding();
 
     return (
         <section id="details" className="py-20 bg-white z-20">

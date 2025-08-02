@@ -18,7 +18,7 @@ export default function BackgroundAnimations() {
         const generateElements = () => {
             const newElements: FloatingElement[] = [];
 
-            for (let i = 0; i < 4; i++) {
+            for (let i = 0; i < 2; i++) {
                 newElements.push({
                     id: i,
                     x: Math.random() * 100,
@@ -42,7 +42,7 @@ export default function BackgroundAnimations() {
                 });
             }
 
-            for (let i = 8; i < 11; i++) {
+            for (let i = 8; i < 10; i++) {
                 newElements.push({
                     id: i,
                     x: Math.random() * 100,

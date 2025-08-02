@@ -1,9 +1,9 @@
-import { ArrowLeft } from "lucide-react";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import Heading from "@/components/custom/Heading";
 import ImageCarousel from "@/components/custom/ImageCarousel";
 import Navigation from "@/components/Navigation";
 import useWedding from "@/hooks/useWedding";
+import Footer from "@/components/Footer";
 
 export default function Gallery() {
     const { weddingData, isLoggedIn } = useWedding();
@@ -15,30 +15,16 @@ export default function Gallery() {
     useEffect(() => window.scrollTo(0, 0));
 
     return (
-        <div className="min-h-screen bg-background">
+        <div className="flex flex-col min-h-screen bg-white">
             <Navigation />
 
-            <div className="max-w-7xl mx-auto px-4 py-20">
-                <div className="text-center mb-12">
-                    <Link
-                        to="/"
-                        className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-6"
-                    >
-                        <ArrowLeft className="h-4 w-4" />
-                        Back to Wedding
-                    </Link>
+            <div className="flex-1 max-w-7xl mx-auto px-4 py-20">
+                <Heading
+                    heading="Wedding Gallery"
+                    subText={`Capturing beautiful moments of ${weddingData.couple.groomName} & ${weddingData.couple.brideName}`}
+                />
 
-                    <h1 className="text-4xl font-serif text-foreground mb-4">
-                        Wedding Gallery
-                    </h1>
-                    <p className="text-muted-foreground">
-                        Capturing the beautiful moments of{" "}
-                        {weddingData.couple.groomName} &{" "}
-                        {weddingData.couple.brideName}
-                    </p>
-                </div>
-
-                {weddingData.gallery.length === 0 ? (
+                {!isLoggedIn && weddingData.gallery.length === 0 ? (
                     <div className="text-center py-16">
                         <h3 className="text-xl font-serif text-foreground mb-2">
                             No photos yet
@@ -53,6 +39,7 @@ export default function Gallery() {
                     </div>
                 )}
             </div>
+            <Footer />
         </div>
     );
 }

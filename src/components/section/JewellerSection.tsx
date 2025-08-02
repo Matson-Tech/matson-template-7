@@ -14,11 +14,14 @@ const JewellerSection: React.FC = () => {
     const { weddingData } = context;
 
     return (
-        <section id="jeweller" className="py-20 bg-white z-20">
+        <section id="jeweller" className="py-20 bg-white">
             <div className="max-w-4xl mx-auto px-4">
-                <Card className="p-8 bg-linear-to-r from-rose-50 to-blush-50 border-rose-200">
+                <Card className="p-2 md:p-8 bg-linear-to-r from-rose-50 to-blush-50 border-rose-200">
+                    <CardContent className="relative border-2 md:border-4 border-blush-400 p-0 rounded-2xl overflow-hidden shadow mb-5">
+                        <img src="/jeweller/ad-1.jpg" alt="" />
+                    </CardContent>
                     <CardContent className="text-center">
-                        <h2 className="text-4xl font-serif text-foreground mb-4">
+                        <h2 className="relative text-4xl font-serif text-foreground mb-4">
                             {weddingData.jeweller.title}
                         </h2>
                         <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">

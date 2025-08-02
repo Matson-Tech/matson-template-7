@@ -1,41 +1,30 @@
-import { ArrowLeft, Heart } from "lucide-react";
+import { Heart } from "lucide-react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import useWedding from "@/hooks/useWedding";
+import Heading from "@/components/custom/Heading";
+import Footer from "@/components/Footer";
 
 export default function Wishes() {
     const { weddingWishes, weddingData, loadAllWeddingWishes } = useWedding();
 
     useEffect(() => {
         loadAllWeddingWishes();
+        window.scrollTo(0, 0);
     }, [loadAllWeddingWishes]);
 
     return (
-        <div className="min-h-screen bg-background">
+        <div className="flex flex-col min-h-screen bg-white">
             <Navigation />
 
-            <div className="max-w-4xl mx-auto px-4 py-20">
-                <div className="text-center mb-12">
-                    <Link
-                        to="/"
-                        className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-6"
-                    >
-                        <ArrowLeft className="h-4 w-4" />
-                        Back to Wedding
-                    </Link>
-
-                    <h1 className="text-4xl font-serif text-foreground mb-4">
-                        All Wedding Wishes
-                    </h1>
-                    <p className="text-muted-foreground">
-                        Beautiful messages from our friends and family for{" "}
-                        {weddingData.couple.groomName} &{" "}
-                        {weddingData.couple.brideName}
-                    </p>
-                </div>
+            <div className="flex-1 max-w-4xl w-full mx-auto px-4 py-20">
+                <Heading
+                    heading="All Wedding Wishes"
+                    subText="Beautiful messages from our friends and family"
+                />
 
                 {weddingWishes.length === 0 ? (
                     <Card className="p-8 text-center">
@@ -82,6 +71,7 @@ export default function Wishes() {
                     </div>
                 )}
             </div>
+            <Footer />
         </div>
     );
 }

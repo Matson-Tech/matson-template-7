@@ -15,6 +15,7 @@ export interface WeddingContextType {
         file: File | null,
         imageCaption: string | null,
         index: number,
+        oldImageName?: string,
     ) => Promise<void>;
     loadAllWeddingWishes: () => Promise<void>;
     saveData: (data: WeddingData) => Promise<boolean>;

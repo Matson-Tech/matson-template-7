@@ -74,8 +74,8 @@ layer(base);
 
     --animate-accordion-down: accordion-down 0.2s ease-out;
     --animate-accordion-up: accordion-up 0.2s ease-out;
-    --animate-float: float 6s ease-in-out infinite;
-    --animate-float-slow: float 8s ease-in-out infinite;
+    --animate-float: cfloat 6s ease-in-out infinite;
+    --animate-float-slow: cfloat 8s ease-in-out infinite;
     --animate-twinkle: twinkle 2s ease-in-out infinite;
     --animate-drift: drift 15s linear infinite;
     --animate-pulse-gentle: pulse-gentle 4s ease-in-out infinite;
@@ -96,10 +96,10 @@ layer(base);
             height: 0;
         }
     }
-    @keyframes float {
+    @keyframes cfloat {
         0%,
         100% {
-            transform: translateY(0px);
+            transform: translateY(0);
         }
         50% {
             transform: translateY(-20px);
@@ -177,6 +177,33 @@ layer(base);
 
 @utility scrollbar-none {
     scrollbar-width: none;
+}
+
+@utility link {
+    background: linear-gradient(
+            0deg,
+            var(--color-blush-300),
+            var(--color-rose-300)
+        )
+        no-repeat right bottom / 0 var(--bg-h);
+    transition:
+        color 350ms ease,
+        background-size 350ms ease;
+    padding-bottom: 2px;
+    --bg-h: 2px;
+    text-decoration: none;
+    line-height: 5mm;
+    color: var(--color-rose-300);
+}
+
+@utility link-underline {
+    background-size: 100% var(--bg-h);
+    background-position-x: left;
+    color: var(--color-rose-400);
+}
+
+@utility animation-delay-3000 {
+    animation-delay: 3000ms;
 }
 
 @layer base {
@@ -307,5 +334,9 @@ layer(base);
     }
     .editable-highlight:hover {
         background-color: hsl(var(--edit-highlight), 0.2);
+    }
+
+    .child-cursor-pointer > * {
+        cursor: pointer;
     }
 }

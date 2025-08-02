@@ -13,7 +13,17 @@ const useUpdateContacts = () => {
         });
         messageOnUpdate(isUpdated, field);
     };
-    return { updateContact };
+    const updateContactAddress = async (text: string, link: string) => {
+        const isUpdated = await updateWeddingData({
+            contact: {
+                ...weddingData.contact,
+                address: text,
+                addressMapLink: link,
+            },
+        });
+        messageOnUpdate(isUpdated, "address");
+    };
+    return { updateContact, updateContactAddress };
 };
 
 export default useUpdateContacts;

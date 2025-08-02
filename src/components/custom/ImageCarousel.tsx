@@ -5,14 +5,16 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import useUpdateGallery from "@/hooks/useUpdateGallery";
 import useWedding from "@/hooks/useWedding";
 import onEnterKeyDown from "@/utils/onEnterKeyDown";
+import EditableImage from "../editable/EditableImage";
+import DeletableItem from "../editable/DeletableItem";
 
 interface ImageCarouselProps {
     limit: number;
 }
 
 const ImageCarousel: React.FC<ImageCarouselProps> = ({ limit }) => {
-    const { weddingData } = useWedding();
-    const { getSlots } = useUpdateGallery();
+    const { weddingData, updateGalleryImage, isLoggedIn } = useWedding();
+    const { getSlots, handleDelete } = useUpdateGallery();
 
     const [selectedImage, setSelectedImage] = useState<number | null>(null);
 
@@ -43,56 +45,83 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ limit }) => {
     return (
         <>
             {slots.map((photo, index) => (
-                <>
-                    {photo.name ? (
-                        <div
-                            key={photo.id}
-                            className="relative group overflow-hidden rounded-lg shadow-lg cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-xl"
-                            onClick={() => openLightbox(index)}
-                            onKeyDown={(e) =>
-                                onEnterKeyDown(e, () => openLightbox(index))
-                            }
-                            tabIndex={0}
-                            role="button"
-                        >
-                            <img
-                                src={photo.url}
-                                alt={
-                                    photo.caption ||
-                                    `Gallery photo ${index + 1}`
-                                }
-                                className="w-full h-64 object-cover"
-                            />
-                            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
-                                <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    <div className="text-white text-center">
-                                        <p className="text-sm font-medium">
-                                            Click to view
-                                        </p>
-                                    </div>
+                <DeletableItem
+                    key={photo.id}
+                    onDelete={() => handleDelete(photo.name, index)}
+                    label={`Delete gallery image ${index + 1}`}
+                    disabled={photo.name === null}
+                >
+                    <EditableImage
+                        onUpdate={updateGalleryImage}
+                        index={index}
+                        label="Update"
+                        className="rounded-lg"
+                        imageCaption={photo.caption}
+                        ImageCaptionAvailable
+                        imageName={photo.name}
+                    >
+                        <div className="relative" key={photo.id}>
+                            {photo.name ? (
+                                <div
+                                    key={`image-${photo.id}`}
+                                    className="relative group overflow-hidden rounded-lg shadow-lg cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-xl"
+                                    onClick={() => openLightbox(index)}
+                                    onKeyDown={(e) =>
+                                        onEnterKeyDown(e, () =>
+                                            openLightbox(index),
+                                        )
+                                    }
+                                    tabIndex={0}
+                                    role="button"
+                                >
+                                    <img
+                                        src={photo.url}
+                                        alt={
+                                            photo.caption ||
+                                            `Gallery photo ${index + 1}`
+                                        }
+                                        className="w-full h-64 object-cover"
+                                    />
+                                    {!isLoggedIn && (
+                                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
+                                            <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                                <div className="text-white text-center">
+                                                    <p className="text-sm font-medium">
+                                                        Click to view
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
+                                    {photo.caption && (
+                                        <div
+                                            key={`caption-${photo.id}`}
+                                            className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/60 to-transparent p-4"
+                                        >
+                                            <p className="text-white text-sm">
+                                                {photo.caption}
+                                            </p>
+                                        </div>
+                                    )}
                                 </div>
-                            </div>
-                            {photo.caption && (
-                                <div className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/60 to-transparent p-4">
-                                    <p className="text-white text-sm">
-                                        {photo.caption}
-                                    </p>
-                                </div>
+                            ) : (
+                                <div
+                                    key={`empty-${photo.id}`}
+                                    className="relative flex flex-col justify-center items-center bg-gray-600/20 w-full h-64"
+                                ></div>
                             )}
                         </div>
-                    ) : (
-                        <div
-                            key={photo.id}
-                            className="relative flex flex-col justify-center items-center bg-gray-600/20 w-full h-64"
-                        ></div>
-                    )}
-                </>
+                    </EditableImage>
+                </DeletableItem>
             ))}
             {/* Lightbox */}
             <Dialog open={selectedImage !== null} onOpenChange={closeLightbox}>
                 <DialogContent className="max-w-4xl max-h-screen p-0 bg-black/90 border-none">
                     {selectedImage !== null && (
-                        <div className="relative w-full max-h-full flex items-center justify-center overflow-hidden">
+                        <div
+                            key="imagePreview"
+                            className="relative w-full max-h-full flex items-center justify-center overflow-hidden"
+                        >
                             <Button
                                 variant="ghost"
                                 size="icon"

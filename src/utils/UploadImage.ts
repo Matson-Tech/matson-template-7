@@ -35,13 +35,19 @@ const convertToWebp = (file: File): Promise<File> => {
     });
 };
 
+export type ImageData = {
+    url: string;
+    name: string;
+};
+
 const uploadImage = async (
     file: File,
     user: User,
     name: string,
-): Promise<string | null> => {
+): Promise<ImageData | null> => {
     const webpFile = await convertToWebp(file);
-    const imagePath = `user_uploads/${user.id}/${name}.webp`;
+    const fileName = `${name}.webp`;
+    const imagePath = `user_uploads/${user.id}/${fileName}`;
     const { error } = await supabase.storage
         .from("images")
         .upload(imagePath, webpFile, {
@@ -73,7 +79,7 @@ const uploadImage = async (
         return null;
     }
 
-    return `${data.publicUrl}?t=${Date.now()}`;
+    return { url: `${data.publicUrl}?t=${Date.now()}`, name: fileName };
 };
 
 export default uploadImage;

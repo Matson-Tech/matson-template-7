@@ -1,11 +1,13 @@
 import useWedding from "@/hooks/useWedding";
 import { Card, CardContent } from "../ui/card";
+import { cn } from "@/lib/utils";
 
 interface ContactCardProps {
     title: string;
     link: string;
     Icon: React.ElementType;
     children?: React.ReactNode;
+    className?: string;
 }
 
 const ContactCard: React.FC<ContactCardProps> = ({
@@ -13,6 +15,7 @@ const ContactCard: React.FC<ContactCardProps> = ({
     link,
     Icon,
     children,
+    className,
 }) => {
     const { isLoggedIn } = useWedding();
 
@@ -24,10 +27,14 @@ const ContactCard: React.FC<ContactCardProps> = ({
 
     return (
         <Card
-            className="flex items-center justify-center p-0"
+            className={cn(
+                "flex items-center justify-center py-5 px-3 cursor-pointer group",
+                className,
+            )}
             onClick={openLinkInNewTab}
+            tabIndex={0}
         >
-            <CardContent>
+            <CardContent className="p-0">
                 <Icon className="h-8 w-8 text-rose-600 mx-auto mb-4 p-0" />
                 <h4 className="font-serif text-lg text-foreground mb-2 text-center">
                     {title}

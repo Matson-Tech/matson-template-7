@@ -1,4 +1,5 @@
 import useWedding from "@/hooks/useWedding";
+import { GalleryImage } from "@/types/wedding";
 import deleteImage from "@/utils/deleteImage";
 import messageOnUpdate, { useCase } from "@/utils/messageOnUpdate";
 
@@ -19,7 +20,7 @@ const useUpdateGallery = () => {
         messageOnUpdate(isUpdated, "photo", useCase.Delete);
     };
 
-    const getSlots = (limit: number) =>
+    const getSlots = (limit: number): GalleryImage[] =>
         Array.from({ length: limit }, (_, index) => {
             return (
                 weddingData.gallery[index] || {

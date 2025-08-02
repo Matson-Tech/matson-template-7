@@ -16,10 +16,6 @@ const deleteImage = async (user: User, name: string) => {
         return false;
     }
 
-    toast({
-        title: "Image deleted successfully!",
-    });
-
     return true;
 };
 

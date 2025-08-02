@@ -3,10 +3,11 @@ import EditableText from "@/components/editable/EditableText";
 import useUpdateContacts from "@/hooks/useUpdateContacts";
 import useWedding from "@/hooks/useWedding";
 import ContactCard from "../custom/ContactCard";
+import EditableLink from "../editable/EditableLink";
 
 const ContactSection: React.FC = () => {
-    const { weddingData } = useWedding();
-    const { updateContact } = useUpdateContacts();
+    const { weddingData, isLoggedIn } = useWedding();
+    const { updateContact, updateContactAddress } = useUpdateContacts();
 
     return (
         <section id="contact" className="py-20 bg-cream-50 z-20">
@@ -25,8 +26,12 @@ const ContactSection: React.FC = () => {
                             value={weddingData.contact.phone}
                             onSave={(value) => updateContact("phone", value)}
                             label="Edit phone number"
-                            className="text-muted-foreground"
+                            className={
+                                !isLoggedIn &&
+                                "link group-hover:link-underline group-focus-visible:link-underline focus-visible:link-underline"
+                            }
                             as="p"
+                            tabIndex={0}
                         />
                     </ContactCard>
                     <ContactCard
@@ -38,7 +43,12 @@ const ContactSection: React.FC = () => {
                             value={weddingData.contact.email}
                             onSave={(value) => updateContact("email", value)}
                             label="Edit email address"
-                            className="text-muted-foreground"
+                            className={
+                                !isLoggedIn &&
+                                "link group-hover:link-underline group-focus-visible:link-underline focus-visible:link-underline"
+                            }
+                            tabIndex={0}
+                            as="p"
                         />
                     </ContactCard>
 
@@ -46,13 +56,14 @@ const ContactSection: React.FC = () => {
                         title="Address"
                         link={weddingData.contact.addressMapLink}
                         Icon={MapPin}
+                        className="text-center"
                     >
-                        <EditableText
-                            value={weddingData.contact.address}
-                            onSave={(value) => {}}
+                        <EditableLink
+                            text={weddingData.contact.address}
+                            link={weddingData.contact.addressMapLink}
+                            onSave={updateContactAddress}
                             label="Edit address"
-                            multiline
-                            className="text-muted-foreground"
+                            className="text-base"
                         />
                     </ContactCard>
                 </div>

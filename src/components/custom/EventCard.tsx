@@ -1,6 +1,7 @@
 import { Calendar, Clock, MapPin } from "lucide-react";
 import useUpdateWeddingDetails from "@/hooks/useUpdateWeddingDetails";
 import type { WeddingEvent } from "@/types/wedding";
+import EditableLink from "../editable/EditableLink";
 import EditableText from "../editable/EditableText";
 import { Card, CardContent } from "../ui/card";
 
@@ -10,7 +11,8 @@ interface EventCardProps {
 }
 
 const EventCard: React.FC<EventCardProps> = ({ event, eventName }) => {
-    const { updateEventDetails } = useUpdateWeddingDetails();
+    const { updateEventDetails, updateEventAddress } =
+        useUpdateWeddingDetails();
     return (
         <Card className="p-6 pb-0">
             <CardContent className="space-y-4">
@@ -59,13 +61,13 @@ const EventCard: React.FC<EventCardProps> = ({ event, eventName }) => {
                             }
                             as="div"
                         />
-                        <EditableText
-                            value={event.address}
+                        <EditableLink
+                            text={event.address}
+                            link={event.addressMapLink}
                             label={`Edit ${event.title} address`}
-                            onSave={(value) =>
-                                updateEventDetails(eventName, "address", value)
+                            onSave={(text, link) =>
+                                updateEventAddress(eventName, text, link)
                             }
-                            as="div"
                         />
                     </div>
                 </div>

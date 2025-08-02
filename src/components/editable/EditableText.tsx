@@ -36,6 +36,7 @@ interface EditableTextProps {
     children?: React.ReactNode;
     multiline?: boolean;
     placeholder?: string;
+    tabIndex?: number;
     as?: SupportedHTMLELements;
 }
 
@@ -45,6 +46,7 @@ const EditableText: React.FC<EditableTextProps> = ({
     label,
     className,
     children,
+    tabIndex,
     multiline = false,
     placeholder = "Enter text...",
     as: Component = "div",
@@ -96,7 +98,11 @@ const EditableText: React.FC<EditableTextProps> = ({
     };
 
     if (!isLoggedIn) {
-        return <Component className={className}>{children || value}</Component>;
+        return (
+            <Component className={className} tabIndex={tabIndex}>
+                {children || value}
+            </Component>
+        );
     }
 
     return (

@@ -6,7 +6,7 @@ const useUpdateWeddingDetails = () => {
     const { weddingData, updateWeddingData } = useWedding();
 
     const updateEventAddress = async (
-        event: "event1" | "event2" | "contact",
+        event: "event1" | "event2",
         text: string,
         link: string,
     ) => {
@@ -21,31 +21,6 @@ const useUpdateWeddingDetails = () => {
             },
         });
         messageOnUpdate(isUpdated, "address");
-    };
-
-    const updateContactAddress = async (text: string, link: string) => {
-        const isUpdated = await updateWeddingData({
-            contact: {
-                ...weddingData.contact,
-                address: text,
-                addressMapLink: link,
-            },
-        });
-        messageOnUpdate(isUpdated, "address");
-    };
-
-    const updateAddress = async (
-        event: "event1" | "event2" | "contact",
-        text: string,
-        link: string,
-    ) => {
-        switch (event) {
-            case "contact":
-                await updateContactAddress(text, link);
-                break;
-            default:
-                await updateEventAddress(event, text, link);
-        }
     };
 
     const updateEventDetails = async (
@@ -67,9 +42,7 @@ const useUpdateWeddingDetails = () => {
 
     return {
         updateEventDetails,
-        updateAddress,
         updateEventAddress,
-        updateContactAddress,
     };
 };
 

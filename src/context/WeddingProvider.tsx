@@ -7,6 +7,7 @@ import type { Json } from "@/integrations/supabase/custom-types";
 import type { User, WeddingData, WeddingWish } from "@/types/wedding";
 import uploadImage from "@/utils/UploadImage";
 import { WeddingContext } from "./WeddingContext";
+import deleteImage from "@/utils/deleteImage";
 
 const defaultWeddingData: WeddingData = {
     couple: {
@@ -277,28 +278,43 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
         file: File | null,
         imageCaption: string | null,
         index: number,
+        oldImageName?: string,
     ) => {
         const imageId = `${Date.now()}-${crypto.randomUUID()}`;
         const imageName = `gallery_image_${imageId}`;
+        let newIndex = index;
 
         const updatedGallery = [...weddingData.gallery];
 
-        if (index >= updatedGallery.length) {
+        const galleryImageCount = updatedGallery.length;
+
+        if (index >= galleryImageCount) {
             updatedGallery.push({
                 id: imageId,
                 url: "",
                 caption: imageCaption,
                 name: imageName,
             });
+            newIndex = galleryImageCount;
         }
 
         if (file) {
-            const imageUrl = await uploadImage(file, user, imageName);
+            const { url: imageUrl, name: fileName } = await uploadImage(
+                file,
+                user,
+                imageName,
+            );
             if (!imageUrl) return;
-            updatedGallery[index].url = imageUrl;
+            updatedGallery[newIndex].url = imageUrl;
+            updatedGallery[newIndex].name = fileName;
         }
 
-        updatedGallery[index].caption = imageCaption;
+        if (oldImageName) {
+            console.log(oldImageName);
+            deleteImage(user, oldImageName);
+        }
+
+        updatedGallery[newIndex].caption = imageCaption;
         updateWeddingData({ gallery: updatedGallery });
     };
 

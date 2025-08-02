@@ -2,9 +2,10 @@ import { Heart, Sparkles } from "lucide-react";
 import EditableText from "@/components/editable/EditableText";
 import useUpdateCouple from "@/hooks/useUpdateCouple";
 import useWedding from "@/hooks/useWedding";
+import EditableImage from "../editable/EditableImage";
 
 const HeroSection: React.FC = () => {
-    const { weddingData, updateWeddingData } = useWedding();
+    const { weddingData } = useWedding();
     const {
         updateWeddingQuote,
         updateBrideName,
@@ -18,11 +19,17 @@ const HeroSection: React.FC = () => {
             className="relative min-h-screen flex items-center justify-center overflow-hidden z-20"
         >
             <div className="absolute inset-0 z-0">
-                <img
-                    src={weddingData.couple.image}
-                    alt="Couple"
-                    className="w-full h-full object-cover absolute inset-0 z-0"
-                />
+                <EditableImage
+                    onUpdate={updateCoupleImage}
+                    className="relative w-full h-full"
+                    enableIcon
+                >
+                    <img
+                        src={weddingData.couple.image}
+                        alt="Couple"
+                        className="w-full h-full object-cover absolute inset-0 z-0 select-none"
+                    />
+                </EditableImage>
 
                 {/* Overlay */}
                 <div className="absolute inset-0 bg-black/30 z-10"></div>
@@ -30,7 +37,7 @@ const HeroSection: React.FC = () => {
                 {/* Subtle sparkles */}
                 <div className="absolute inset-0 select-none pointer-events-none z-20">
                     <div className="absolute top-1/4 left-1/4 text-amber-400/80 pulse-gentle">
-                        <Sparkles className="animate-float-slow" />
+                        <Sparkles className="animate-float-slow animation-delay-3000" />
                     </div>
                     <div className="absolute bottom-1/3 right-1/3 text-amber-400/80 pulse-gentle">
                         <Sparkles className="animate-float-slow" />
