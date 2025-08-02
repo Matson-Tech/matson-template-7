@@ -16,7 +16,7 @@ const JewellerSection: React.FC = () => {
     return (
         <section id="jeweller" className="py-20 bg-white z-20">
             <div className="max-w-4xl mx-auto px-4">
-                <Card className="p-8 bg-gradient-to-r from-rose-50 to-blush-50 border-rose-200">
+                <Card className="p-8 bg-linear-to-r from-rose-50 to-blush-50 border-rose-200">
                     <CardContent className="text-center">
                         <h2 className="text-4xl font-serif text-foreground mb-4">
                             {weddingData.jeweller.title}

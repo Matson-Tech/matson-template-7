@@ -34,7 +34,7 @@ const OurStorySection: React.FC = () => {
                             className="text-muted-foreground leading-relaxed max-w-md text-left"
                         />
                     </div>
-                    <div className="relative flex-grow max-w-lg">
+                    <div className="relative grow max-w-lg">
                         <img
                             src={weddingData.story.image}
                             alt="Our Story"

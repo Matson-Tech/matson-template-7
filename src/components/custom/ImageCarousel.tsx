@@ -73,7 +73,7 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ limit }) => {
                                 </div>
                             </div>
                             {photo.caption && (
-                                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">
+                                <div className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/60 to-transparent p-4">
                                     <p className="text-white text-sm">
                                         {photo.caption}
                                     </p>

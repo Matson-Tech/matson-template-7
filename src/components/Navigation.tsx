@@ -32,11 +32,11 @@ export default function Navigation() {
     const closeSidebar = useCallback(() => setIsMenuOpen(false), []);
 
     return (
-        <nav className="w-full bg-blush-50/80 backdrop-blur-sm border-b border-blush-200 sticky top-0 z-50">
+        <nav className="w-full bg-blush-50/80 backdrop-blur-xs border-b border-blush-200 sticky top-0 z-50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16">
                     {/* Logo/Brand */}
-                    <div className="flex-shrink-0">
+                    <div className="shrink-0">
                         <Link
                             to="/"
                             className="font-serif text-2xl text-rose-600"

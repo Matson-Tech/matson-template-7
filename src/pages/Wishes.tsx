@@ -1,4 +1,5 @@
 import { ArrowLeft, Heart } from "lucide-react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import { Button } from "@/components/ui/button";
@@ -6,7 +7,11 @@ import { Card, CardContent } from "@/components/ui/card";
 import useWedding from "@/hooks/useWedding";
 
 export default function Wishes() {
-    const { weddingWishes, weddingData } = useWedding();
+    const { weddingWishes, weddingData, loadAllWeddingWishes } = useWedding();
+
+    useEffect(() => {
+        loadAllWeddingWishes();
+    }, [loadAllWeddingWishes]);
 
     return (
         <div className="min-h-screen bg-background">
@@ -57,7 +62,7 @@ export default function Wishes() {
                             >
                                 <CardContent>
                                     <div className="flex items-start gap-4">
-                                        <div className="flex-shrink-0">
+                                        <div className="shrink-0">
                                             <div className="w-12 h-12 bg-rose-100 rounded-full flex items-center justify-center">
                                                 <Heart className="h-6 w-6 text-rose-600" />
                                             </div>
@@ -74,14 +79,6 @@ export default function Wishes() {
                                 </CardContent>
                             </Card>
                         ))}
-
-                        <div className="text-center pt-8">
-                            <Link to="/#wishes">
-                                <Button variant="outline">
-                                    Add Your Wishes
-                                </Button>
-                            </Link>
-                        </div>
                     </div>
                 )}
             </div>

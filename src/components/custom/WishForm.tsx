@@ -47,10 +47,10 @@ const WishForm: React.FC = () => {
                     Leave your wishes
                 </CardTitle>
             </CardHeader>
-            <CardContent className="flex flex-col flex-grow">
+            <CardContent className="flex flex-col grow">
                 <form
                     onSubmit={handleAddWish}
-                    className="flex flex-col flex-grow space-y-3"
+                    className="flex flex-col grow space-y-3"
                 >
                     <div className="flex flex-col flex-1 space-y-4">
                         <Input

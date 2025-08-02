@@ -55,7 +55,7 @@ const HeroSection: React.FC = () => {
                     />
 
                     <div className="relative text-4xl md:text-6xl font-light flex justify-center">
-                        <Heart className="absolute mx-auto w-10 h-10 text-rose-500/80 blur-sm" />
+                        <Heart className="absolute mx-auto w-10 h-10 text-rose-500/80 blur-xs" />
                         <Heart className="mx-auto w-10 h-10 text-rose-400" />
                     </div>
 
