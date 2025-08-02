@@ -13,6 +13,7 @@ import {
 } from "../ui/dialog";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
+import Heading from "../custom/Heading";
 
 const ScheduleSection: React.FC = () => {
     const { weddingData, isLoggedIn } = useWedding();
@@ -29,27 +30,30 @@ const ScheduleSection: React.FC = () => {
     return (
         <section id="schedule" className="py-20 bg-cream-50 z-20">
             <div className="max-w-4xl mx-auto px-4">
-                <div className="flex justify-between items-center mb-16">
-                    <h2 className="text-4xl font-serif text-foreground">
-                        Wedding Schedule
-                    </h2>
+                <div className="flex flex-col gap-8 md:flex-row md:gap-0 justify-end items-center mb-16">
+                    <div className="w-full text-center">
+                        <Heading
+                            heading="Wedding Schedule"
+                            subText=" Timeline of our special day"
+                            className="mb-0"
+                        />
+                    </div>
                     {isLoggedIn && (
                         <Button
                             onClick={() => setIsAddingItem(true)}
                             size="sm"
-                            className="flex items-center gap-2"
+                            className="md:absolute flex items-center gap-2"
                         >
                             <Plus className="h-4 w-4" />
                             Add Event
                         </Button>
                     )}
                 </div>
-
                 <div className="space-y-6">
                     {weddingData.schedule.map((item) => (
                         <Card key={item.id} className="p-2 pt-8">
-                            <CardContent className="flex items-center justify-between">
-                                <div className="flex items-center gap-6">
+                            <CardContent className="flex items-center justify-between space-x-4">
+                                <div className="flex items-center">
                                     <EditableText
                                         value={item.time}
                                         onSave={(value) =>
@@ -64,7 +68,7 @@ const ScheduleSection: React.FC = () => {
                                         as="div"
                                     />
 
-                                    <div>
+                                    <div className="space-y-1">
                                         <EditableText
                                             value={item.event}
                                             onSave={(value) =>
@@ -89,12 +93,9 @@ const ScheduleSection: React.FC = () => {
                                                 )
                                             }
                                             label={`Edit ${item.event} description`}
-                                            className="text-muted-foreground"
-                                        >
-                                            <p className="text-muted-foreground">
-                                                {item.description}
-                                            </p>
-                                        </EditableText>
+                                            className="text-muted-foreground text-sm md:text-base"
+                                            as="p"
+                                        />
                                     </div>
                                 </div>
 
@@ -105,7 +106,7 @@ const ScheduleSection: React.FC = () => {
                                         }
                                         size="sm"
                                         variant="destructive"
-                                        className="flex items-center gap-2"
+                                        className="flex items-center"
                                     >
                                         <Trash2 className="h-4 w-4" />
                                     </Button>

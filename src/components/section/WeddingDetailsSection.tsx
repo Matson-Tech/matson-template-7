@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { WeddingContext } from "@/context/WeddingContext";
 import EventCard from "../custom/EventCard";
 import ToKnowCard from "../custom/ToKnowCard";
+import Heading from "../custom/Heading";
 
 const WeddingDetailsSection: React.FC = () => {
     const context = useContext(WeddingContext);
@@ -17,9 +18,10 @@ const WeddingDetailsSection: React.FC = () => {
     return (
         <section id="details" className="py-20 bg-white z-20">
             <div className="max-w-6xl mx-auto px-4">
-                <h2 className="text-4xl font-serif text-center text-foreground mb-16">
-                    Wedding Details
-                </h2>
+                <Heading
+                    heading="Wedding Details"
+                    subText="Join us for these special moments"
+                />
 
                 {/* Events */}
                 <div className="grid md:grid-cols-2 gap-8 mb-16">

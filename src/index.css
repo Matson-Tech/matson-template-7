@@ -147,3 +147,9 @@
         );
     }
 }
+
+@layer components {
+    .scrollbar-none {
+        scrollbar-width: none;
+    }
+}

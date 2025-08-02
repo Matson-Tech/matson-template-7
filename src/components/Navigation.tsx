@@ -1,8 +1,7 @@
-import { useCallback, useContext, useState } from "react";
+import { LogOut, Menu, X } from "lucide-react";
+import { useCallback, useState } from "react";
 import { Link } from "react-router-dom";
-import { WeddingContext } from "@/context/WeddingContext";
 import { Button } from "@/components/ui/button";
-import { X, Menu, LogOut } from "lucide-react";
 import useWedding from "@/hooks/useWedding";
 
 type NavIds =
@@ -52,49 +51,49 @@ export default function Navigation() {
                         <div className="ml-10 flex items-baseline space-x-8 font-serif font-medium">
                             <button
                                 type="button"
-                                className="text-foreground hover:text-rose-600 transition-colors duration-200 text-sm tracking-wide uppercase"
+                                className="text-foreground hover:text-rose-600 transition-colors duration-200 text-sm tracking-wide"
                                 onClick={() => scrollToSection("home")}
                             >
                                 Home
                             </button>
                             <button
                                 type="button"
-                                className="text-foreground hover:text-rose-600 transition-colors duration-200 text-sm tracking-wide uppercase"
+                                className="text-foreground hover:text-rose-600 transition-colors duration-200 text-sm tracking-wide"
                                 onClick={() => scrollToSection("story")}
                             >
                                 Story
                             </button>
                             <button
                                 type="button"
-                                className="text-foreground hover:text-rose-600 transition-colors duration-200 text-sm tracking-wide uppercase"
+                                className="text-foreground hover:text-rose-600 transition-colors duration-200 text-sm tracking-wide"
                                 onClick={() => scrollToSection("details")}
                             >
                                 Details
                             </button>
                             <button
                                 type="button"
-                                className="text-foreground hover:text-rose-600 transition-colors duration-200 text-sm tracking-wide uppercase"
+                                className="text-foreground hover:text-rose-600 transition-colors duration-200 text-sm tracking-wide"
                                 onClick={() => scrollToSection("schedule")}
                             >
                                 Schedule
                             </button>
                             <button
                                 type="button"
-                                className="text-foreground hover:text-rose-600 transition-colors duration-200 text-sm tracking-wide uppercase"
+                                className="text-foreground hover:text-rose-600 transition-colors duration-200 text-sm tracking-wide"
                                 onClick={() => scrollToSection("gallery")}
                             >
                                 Gallery
                             </button>
                             <button
                                 type="button"
-                                className="text-foreground hover:text-rose-600 transition-colors duration-200 text-sm tracking-wide uppercase"
+                                className="text-foreground hover:text-rose-600 transition-colors duration-200 text-sm tracking-wide"
                                 onClick={() => scrollToSection("wishes")}
                             >
                                 Wish
                             </button>
                             <button
                                 type="button"
-                                className="text-foreground hover:text-rose-600 transition-colors duration-200 text-sm tracking-wide uppercase"
+                                className="text-foreground hover:text-rose-600 transition-colors duration-200 text-sm tracking-wide"
                                 onClick={() => scrollToSection("contact")}
                             >
                                 Contact
@@ -102,7 +101,7 @@ export default function Navigation() {
                             {isLoggedIn && (
                                 <Button
                                     type="button"
-                                    className="text-foreground hover:text-rose-600 transition-colors duration-200 text-sm tracking-wide uppercase bg-rose-200 hover:bg-rose-100"
+                                    className="text-foreground hover:text-rose-600 transition-colors duration-200 text-sm tracking-wide bg-rose-200 hover:bg-rose-100"
                                     onClick={logout}
                                 >
                                     Logout

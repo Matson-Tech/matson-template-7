@@ -1,10 +1,12 @@
 import { Mail, MapPin, Phone } from "lucide-react";
 import EditableText from "@/components/editable/EditableText";
-import { Card, CardContent } from "@/components/ui/card";
+import useUpdateContacts from "@/hooks/useUpdateContacts";
 import useWedding from "@/hooks/useWedding";
+import ContactCard from "../custom/ContactCard";
 
 const ContactSection: React.FC = () => {
-    const { weddingData, updateWeddingData } = useWedding();
+    const { weddingData } = useWedding();
+    const { updateContact } = useUpdateContacts();
 
     return (
         <section id="contact" className="py-20 bg-cream-50 z-20">
@@ -14,63 +16,45 @@ const ContactSection: React.FC = () => {
                 </h2>
 
                 <div className="grid md:grid-cols-3 gap-8">
-                    <Card className="p-6 text-center">
-                        <CardContent>
-                            <Phone className="h-8 w-8 text-rose-600 mx-auto mb-4" />
-                            <h4 className="font-serif text-lg text-foreground mb-2">
-                                Phone
-                            </h4>
-                            <EditableText
-                                value={weddingData.contact.phone}
-                                onSave={(value) => {}}
-                                label="Edit phone number"
-                                className="text-muted-foreground"
-                            >
-                                <p className="text-muted-foreground">
-                                    {weddingData.contact.phone}
-                                </p>
-                            </EditableText>
-                        </CardContent>
-                    </Card>
+                    <ContactCard
+                        title="Phone"
+                        link={`tel:${weddingData.contact.phone}`}
+                        Icon={Phone}
+                    >
+                        <EditableText
+                            value={weddingData.contact.phone}
+                            onSave={(value) => updateContact("phone", value)}
+                            label="Edit phone number"
+                            className="text-muted-foreground"
+                            as="p"
+                        />
+                    </ContactCard>
+                    <ContactCard
+                        title="Email"
+                        link={`mailto:${weddingData.contact.email}`}
+                        Icon={Mail}
+                    >
+                        <EditableText
+                            value={weddingData.contact.email}
+                            onSave={(value) => updateContact("email", value)}
+                            label="Edit email address"
+                            className="text-muted-foreground"
+                        />
+                    </ContactCard>
 
-                    <Card className="p-6 text-center">
-                        <CardContent>
-                            <Mail className="h-8 w-8 text-rose-600 mx-auto mb-4" />
-                            <h4 className="font-serif text-lg text-foreground mb-2">
-                                Email
-                            </h4>
-                            <EditableText
-                                value={weddingData.contact.email}
-                                onSave={(value) => {}}
-                                label="Edit email address"
-                                className="text-muted-foreground"
-                            >
-                                <p className="text-muted-foreground">
-                                    {weddingData.contact.email}
-                                </p>
-                            </EditableText>
-                        </CardContent>
-                    </Card>
-
-                    <Card className="p-6 text-center">
-                        <CardContent>
-                            <MapPin className="h-8 w-8 text-rose-600 mx-auto mb-4" />
-                            <h4 className="font-serif text-lg text-foreground mb-2">
-                                Address
-                            </h4>
-                            <EditableText
-                                value={weddingData.contact.address}
-                                onSave={(value) => {}}
-                                label="Edit address"
-                                multiline
-                                className="text-muted-foreground"
-                            >
-                                <p className="text-muted-foreground">
-                                    {weddingData.contact.address}
-                                </p>
-                            </EditableText>
-                        </CardContent>
-                    </Card>
+                    <ContactCard
+                        title="Address"
+                        link={weddingData.contact.addressMapLink}
+                        Icon={MapPin}
+                    >
+                        <EditableText
+                            value={weddingData.contact.address}
+                            onSave={(value) => {}}
+                            label="Edit address"
+                            multiline
+                            className="text-muted-foreground"
+                        />
+                    </ContactCard>
                 </div>
             </div>
         </section>

@@ -12,7 +12,7 @@ interface EventCardProps {
 const EventCard: React.FC<EventCardProps> = ({ event, eventName }) => {
     const { updateEventDetails } = useUpdateWeddingDetails();
     return (
-        <Card className="p-6">
+        <Card className="p-6 pb-0">
             <CardContent className="space-y-4">
                 <EditableText
                     value={event.title}

@@ -11,8 +11,8 @@ interface ToKnowCardProps {
 const ToKnowCard: React.FC<ToKnowCardProps> = ({ toKnowName, toKnow }) => {
     const { updateEventDetails } = useUpdateWeddingDetails();
     return (
-        <Card className="p-6">
-            <CardContent>
+        <Card className="py-4 px-6">
+            <CardContent className="p-0">
                 <EditableText
                     value={toKnow.title}
                     onSave={(value) =>
