@@ -4,6 +4,7 @@ import useUpdateContacts from "@/hooks/useUpdateContacts";
 import useWedding from "@/hooks/useWedding";
 import ContactCard from "../custom/ContactCard";
 import EditableLink from "../editable/EditableLink";
+import Heading from "../custom/Heading";
 
 const ContactSection: React.FC = () => {
     const { weddingData, isLoggedIn } = useWedding();
@@ -12,9 +13,10 @@ const ContactSection: React.FC = () => {
     return (
         <section id="contact" className="py-20 bg-cream-50 z-20">
             <div className="max-w-4xl mx-auto px-4">
-                <h2 className="text-4xl font-serif text-center text-foreground mb-16">
-                    Contact Us
-                </h2>
+                <Heading
+                    heading="Contact Us"
+                    subText="Get in touch for any queries"
+                />
 
                 <div className="grid md:grid-cols-3 gap-8">
                     <ContactCard

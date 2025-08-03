@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import useWedding from "@/hooks/useWedding";
 import WishCard from "../custom/WishCard";
 import WishForm from "../custom/WishForm";
+import Heading from "../custom/Heading";
 
 const GuestWishesSection: React.FC = () => {
     const { weddingWishes } = useWedding();
@@ -11,9 +12,11 @@ const GuestWishesSection: React.FC = () => {
     return (
         <section id="wishes" className="py-20 bg-cream-50 z-20">
             <div className="max-w-6xl mx-auto px-4">
-                <h2 className="text-4xl font-serif text-center text-foreground mb-16">
-                    Guest Wishes
-                </h2>
+                <Heading
+                    heading="Guest Wishes"
+                    subText="Messages wrapped in love"
+                />
+
                 <div className="flex flex-col md:flex-row gap-6 justify-center w-full">
                     {/* Add Wish Form */}
                     <WishForm />

@@ -9,7 +9,7 @@ import Heading from "@/components/custom/Heading";
 import Footer from "@/components/Footer";
 
 export default function Wishes() {
-    const { weddingWishes, weddingData, loadAllWeddingWishes } = useWedding();
+    const { weddingWishes, loadAllWeddingWishes } = useWedding();
 
     useEffect(() => {
         loadAllWeddingWishes();
