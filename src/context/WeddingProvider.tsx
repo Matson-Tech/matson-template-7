@@ -8,6 +8,7 @@ import type { User, WeddingData, WeddingWish } from "@/types/wedding";
 import uploadImage from "@/utils/UploadImage";
 import { WeddingContext } from "./WeddingContext";
 import deleteImage from "@/utils/deleteImage";
+import { capitalizeWords } from "@/utils/capitalize";
 
 const defaultWeddingData: WeddingData = {
     couple: {
@@ -214,6 +215,14 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
 
         return () => subscription.unsubscribe();
     }, []);
+
+    useEffect(() => {
+        if (!globalIsLoading) {
+            const groom = capitalizeWords(weddingData.couple.groomName);
+            const bride = capitalizeWords(weddingData.couple.brideName);
+            document.title = `${bride} & ${groom}`;
+        }
+    }, [globalIsLoading, weddingData]);
 
     const loadAllWeddingWishes = useCallback(async () => {
         setGloabalIsLoading(true);
