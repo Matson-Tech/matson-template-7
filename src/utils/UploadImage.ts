@@ -1,4 +1,4 @@
-import { toast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import type { User } from "@/types/wedding";
 
@@ -56,26 +56,20 @@ const uploadImage = async (
 
     if (error) {
         console.log("Error Uploading image: ", error.message);
-        toast({
-            title: "Failed to upload image",
+        toast.error("Failed to upload image!", {
             description: error.message,
-            variant: "destructive",
         });
         return null;
     }
 
-    toast({
-        title: "Image uploaded Successfully!",
+    toast.success("Image uploaded Successfully!", {
         description: "Please wait few seconds to see the effect.",
     });
 
     const { data } = supabase.storage.from("images").getPublicUrl(imagePath);
 
     if (!data.publicUrl) {
-        toast({
-            title: "Failed to retrieve load Image!",
-            variant: "destructive",
-        });
+        toast.error("Failed to retrieve load Image!");
         return null;
     }
 
