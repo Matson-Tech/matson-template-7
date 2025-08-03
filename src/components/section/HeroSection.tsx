@@ -19,11 +19,7 @@ const HeroSection: React.FC = () => {
             className="relative min-h-screen flex items-center justify-center overflow-hidden z-20"
         >
             <div className="absolute inset-0 z-0">
-                <EditableImage
-                    onUpdate={updateCoupleImage}
-                    className="relative w-full h-full"
-                    enableIcon
-                >
+                <EditableImage onUpdate={updateCoupleImage} enableIcon>
                     <img
                         src={weddingData.couple.image}
                         alt="Couple"
