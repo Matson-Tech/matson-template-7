@@ -15,10 +15,13 @@ import {
 } from "@/components/section";
 import scrollToSection from "@/lib/scrollToSection";
 import Footer from "@/components/Footer";
+import Loading from "@/components/custom/Loading";
+import useWedding from "@/hooks/useWedding";
 
 export default function Index() {
     const location = useLocation();
     const navigate = useNavigate();
+    const { globalIsLoading } = useWedding();
 
     useEffect(() => {
         const section: NavIds = location.state?.section as NavIds | undefined;
@@ -27,6 +30,10 @@ export default function Index() {
             navigate(location.pathname, { replace: true });
         }
     }, [location.pathname, location.state, navigate]);
+
+    if (globalIsLoading) {
+        return <Loading />;
+    }
 
     return (
         <div className="min-h-screen bg-background relative">

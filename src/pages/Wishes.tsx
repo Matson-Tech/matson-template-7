@@ -7,14 +7,20 @@ import { Card, CardContent } from "@/components/ui/card";
 import useWedding from "@/hooks/useWedding";
 import Heading from "@/components/custom/Heading";
 import Footer from "@/components/Footer";
+import Loading from "@/components/custom/Loading";
 
 export default function Wishes() {
-    const { weddingWishes, loadAllWeddingWishes } = useWedding();
+    const { weddingWishes, loadAllWeddingWishes, globalIsLoading } =
+        useWedding();
 
     useEffect(() => {
         loadAllWeddingWishes();
         window.scrollTo(0, 0);
     }, [loadAllWeddingWishes]);
+
+    if (globalIsLoading) {
+        return <Loading />;
+    }
 
     return (
         <div className="flex flex-col min-h-screen bg-white">

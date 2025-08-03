@@ -15,7 +15,8 @@ export type NavIds =
     | "gallery"
     | "wishes"
     | "contact"
-    | "info";
+    | "info"
+    | "jeweller";
 
 type NavItems = Array<{
     id: NavIds;
@@ -42,6 +43,7 @@ export default function Navigation() {
         { id: "wishes", text: "Wishes" },
         { id: "contact", text: "Contact" },
         { id: "info", text: "Info" },
+        { id: "jeweller", text: "Jeweller" },
     ];
 
     const toggleSidebar = useCallback(() => setIsMenuOpen((prev) => !prev), []);

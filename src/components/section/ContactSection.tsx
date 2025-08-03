@@ -3,8 +3,8 @@ import EditableText from "@/components/editable/EditableText";
 import useUpdateContacts from "@/hooks/useUpdateContacts";
 import useWedding from "@/hooks/useWedding";
 import ContactCard from "../custom/ContactCard";
-import EditableLink from "../editable/EditableLink";
 import Heading from "../custom/Heading";
+import EditableLink from "../editable/EditableLink";
 
 const ContactSection: React.FC = () => {
     const { weddingData, isLoggedIn } = useWedding();
