@@ -58,7 +58,7 @@ const LoginWithToken: React.FC<LoginWithTokenProps> = ({
         return () => {
             isMounted = false;
         };
-    }, [refresh_token, navigate]);
+    }, [access_token, refresh_token, navigate]);
 
     return <Loading />;
 };
