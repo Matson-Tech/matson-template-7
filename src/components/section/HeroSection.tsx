@@ -13,13 +13,19 @@ const HeroSection: React.FC = () => {
         updateCoupleImage,
     } = useUpdateCouple();
 
+    console.log(weddingData.couple.image);
+
     return (
         <section
             id="home"
             className="relative min-h-screen flex items-center justify-center overflow-hidden z-20"
         >
             <div className="absolute inset-0 z-0">
-                <EditableImage onUpdate={updateCoupleImage} enableIcon>
+                <EditableImage
+                    onUpdate={updateCoupleImage}
+                    className="w-full h-full"
+                    enableIcon
+                >
                     <img
                         src={weddingData.couple.image}
                         alt="Couple"

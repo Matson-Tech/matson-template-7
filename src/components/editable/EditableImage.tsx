@@ -1,6 +1,7 @@
 import type React from "react";
 import { useId, useState } from "react";
 import useWedding from "@/hooks/useWedding";
+import { cn } from "@/lib/utils";
 import HoverUploadIcon from "../custom/HoverUploadIcon";
 import ImageDropArea from "../custom/ImageDropArea";
 import { Button } from "../ui/button";
@@ -13,7 +14,6 @@ import {
 } from "../ui/dialog";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import { cn } from "@/lib/utils";
 
 type EditableImageProps = {
     onUpdate: (

@@ -5,9 +5,9 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { WeddingProvider } from "@/context/WeddingProvider";
 import Gallery from "./pages/Gallery";
 import Index from "./pages/Index";
-import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import Wishes from "./pages/Wishes";
+import LoginRoute from "./pages/LoginRoute";
 
 const queryClient = new QueryClient();
 
@@ -19,7 +19,7 @@ const App = () => (
                 <BrowserRouter>
                     <Routes>
                         <Route path="/" element={<Index />} />
-                        <Route path="/login" element={<Login />} />
+                        <Route path="/login" element={<LoginRoute />} />
                         <Route path="/wishes" element={<Wishes />} />
                         <Route path="/gallery" element={<Gallery />} />
                         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

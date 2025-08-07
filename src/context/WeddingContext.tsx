@@ -10,6 +10,7 @@ export interface WeddingContextType {
     session: Session | null;
     isLoggedIn: boolean;
     globalIsLoading: boolean;
+    setGlobalIsLoading: Dispatch<SetStateAction<boolean>>;
     updateWeddingData: (data: Partial<WeddingData>) => Promise<boolean>;
     updateGalleryImage: (
         file: File | null,

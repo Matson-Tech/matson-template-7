@@ -132,7 +132,7 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
     const [user, setUser] = useState<User | null>(null);
     const [session, setSession] = useState<Session | null>(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [globalIsLoading, setGloabalIsLoading] = useState(true);
+    const [globalIsLoading, setGlobalIsLoading] = useState(true);
 
     useEffect(() => {
         const loadWeddingData = async (id: string) => {
@@ -154,7 +154,7 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
                 }
 
                 if (location.pathname === "/wishes") {
-                    setGloabalIsLoading(false);
+                    setGlobalIsLoading(false);
                     return;
                 }
 
@@ -175,7 +175,7 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
             } catch (error) {
                 console.error("Error loading wedding data:", error);
             } finally {
-                setGloabalIsLoading(false);
+                setGlobalIsLoading(false);
             }
         };
 
@@ -191,6 +191,7 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
                     email: session.user.email || "",
                     isAuthenticated: true,
                 };
+                console.log(session); // Remove this line
                 setUser(mappedUser);
                 setIsLoggedIn(true);
             } else {
@@ -225,7 +226,7 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
     }, [globalIsLoading, weddingData]);
 
     const loadAllWeddingWishes = useCallback(async () => {
-        setGloabalIsLoading(true);
+        setGlobalIsLoading(true);
         try {
             const { data: wishData, error: wishError } = await supabase
                 .from("guest_wishes")
@@ -247,7 +248,7 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
         } catch (error) {
             console.log("Error loading all wishes: ", error);
         } finally {
-            setGloabalIsLoading(false);
+            setGlobalIsLoading(false);
         }
     }, []);
 
@@ -393,6 +394,7 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
                 session,
                 isLoggedIn,
                 globalIsLoading,
+                setGlobalIsLoading,
                 updateWeddingData,
                 updateGalleryImage,
                 saveData,
