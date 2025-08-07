@@ -139,8 +139,8 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
             try {
                 const { data: weddingData, error: weddingError } =
                     await supabase
-                        .from("wedding_data")
-                        .select("data")
+                        .from("web_entries")
+                        .select("web_data")
                         .eq("user_id", id)
                         .maybeSingle();
 
@@ -149,8 +149,12 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
                     return;
                 }
 
-                if (weddingData?.data) {
-                    setWeddingData(weddingData.data as unknown as WeddingData);
+                console.log(weddingData);
+
+                if (weddingData?.web_data) {
+                    setWeddingData(
+                        weddingData.web_data as unknown as WeddingData,
+                    );
                 }
 
                 if (location.pathname === "/wishes") {
