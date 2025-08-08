@@ -5,10 +5,10 @@ import { flushSync } from "react-dom";
 import { supabase } from "@/integrations/supabase/client";
 import type { Json } from "@/integrations/supabase/custom-types";
 import type { User, WeddingData, WeddingWish } from "@/types/wedding";
+import { capitalizeWords } from "@/utils/capitalize";
+import deleteImage from "@/utils/deleteImage";
 import uploadImage from "@/utils/UploadImage";
 import { WeddingContext } from "./WeddingContext";
-import deleteImage from "@/utils/deleteImage";
-import { capitalizeWords } from "@/utils/capitalize";
 
 const defaultWeddingData: WeddingData = {
     colorScheme: "",
@@ -388,7 +388,7 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
             });
 
             if (error) {
-                console.log("Error adding new wish(Supabase error)", error);
+                console.log("Error adding new wish (Supabase error): ", error);
             }
         } catch (error) {
             console.log("Error adding new wish", error);

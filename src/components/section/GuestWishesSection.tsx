@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import useWedding from "@/hooks/useWedding";
+import Heading from "../custom/Heading";
 import WishCard from "../custom/WishCard";
 import WishForm from "../custom/WishForm";
-import Heading from "../custom/Heading";
 
 const GuestWishesSection: React.FC = () => {
     const { weddingWishes } = useWedding();
@@ -17,7 +17,7 @@ const GuestWishesSection: React.FC = () => {
                     subText="Messages wrapped in love"
                 />
 
-                <div className="flex flex-col md:flex-row gap-6 justify-center w-full">
+                <div className="flex flex-col md:flex-row gap-6 justify-center items-center md:items-stretch w-full">
                     {/* Add Wish Form */}
                     <WishForm />
                     {/* Recent Wishes */}
