@@ -58,7 +58,6 @@ const EditableLink: React.FC<EditableLinkProps> = ({
     const handleOnClick = () => {
         setEditText(text);
         setEditLink(link);
-        console.log(link);
     };
 
     const editableClassName = cn(

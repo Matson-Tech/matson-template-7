@@ -11,6 +11,9 @@ import deleteImage from "@/utils/deleteImage";
 import { capitalizeWords } from "@/utils/capitalize";
 
 const defaultWeddingData: WeddingData = {
+    colorScheme: "",
+    fontFamily: "",
+    template: "",
     couple: {
         groomName: "Alec Richelieu",
         brideName: "Zola Bekker",
@@ -149,8 +152,6 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
                     return;
                 }
 
-                console.log(weddingData);
-
                 if (weddingData?.web_data) {
                     setWeddingData(
                         weddingData.web_data as unknown as WeddingData,
@@ -195,7 +196,6 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
                     email: session.user.email || "",
                     isAuthenticated: true,
                 };
-                console.log(session); // Remove this line
                 setUser(mappedUser);
                 setIsLoggedIn(true);
             } else {
@@ -257,8 +257,8 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
     }, []);
 
     useEffect(() => {
-        const channel = supabase.channel("wishes-channel");
-        channel
+        const wishChannel = supabase.channel("wishes-channel");
+        wishChannel
             .on(
                 "postgres_changes",
                 { event: "INSERT", schema: "public", table: "guest_wishes" },
@@ -269,7 +269,28 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
             )
             .subscribe();
         return () => {
-            supabase.removeChannel(channel);
+            supabase.removeChannel(wishChannel);
+        };
+    }, []);
+
+    useEffect(() => {
+        const weddingDataChannel = supabase.channel("wedding-data-channel");
+        weddingDataChannel
+            .on(
+                "postgres_changes",
+                { event: "UPDATE", schema: "public", table: "web_entries" },
+                (payload) => {
+                    const newWeddingData = payload.new;
+                    if (newWeddingData?.web_data) {
+                        setWeddingData(
+                            newWeddingData.web_data as unknown as WeddingData,
+                        );
+                    }
+                },
+            )
+            .subscribe();
+        return () => {
+            supabase.removeChannel(weddingDataChannel);
         };
     }, []);
 
@@ -324,7 +345,6 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
         }
 
         if (oldImageName) {
-            console.log(oldImageName);
             deleteImage(user, oldImageName);
         }
 
@@ -339,10 +359,10 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
         }
 
         try {
-            const { error } = await supabase.from("wedding_data").upsert(
+            const { error } = await supabase.from("web_entries").upsert(
                 {
                     user_id: user.id,
-                    data: data as unknown as Json,
+                    web_data: data as unknown as Json,
                     updated_at: new Date().toISOString(),
                 },
                 { onConflict: "user_id" },
@@ -353,7 +373,7 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
                 return false;
             }
         } catch (error) {
-            console.error("Error saving wedding data:", error);
+            console.error("Error saving wedding data:", error.message);
             return false;
         }
         return true;

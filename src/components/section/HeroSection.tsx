@@ -13,8 +13,6 @@ const HeroSection: React.FC = () => {
         updateCoupleImage,
     } = useUpdateCouple();
 
-    console.log(weddingData.couple.image);
-
     return (
         <section
             id="home"

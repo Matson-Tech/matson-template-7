@@ -73,6 +73,9 @@ export interface WeddingJeweller {
 }
 
 export interface WeddingData {
+    colorScheme: string;
+    fontFamily: string;
+    template: string;
     couple: WeddingCouple;
     story: WeddingStory;
     weddingDetails: WeddingDetails;
