@@ -1,5 +1,5 @@
 import { LogOut, Menu, X } from "lucide-react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import useWedding from "@/hooks/useWedding";
@@ -21,6 +21,7 @@ export type NavIds =
 type NavItems = Array<{
     id: NavIds;
     text: string;
+    disabled: boolean;
 }>;
 
 export default function Navigation() {
@@ -34,17 +35,44 @@ export default function Navigation() {
 
     const mainObserver = useRef<IntersectionObserver | null>(null);
 
-    const navItems: NavItems = [
-        { id: "home", text: "Home" },
-        { id: "story", text: "Story" },
-        { id: "details", text: "Details" },
-        { id: "schedule", text: "Schedule" },
-        { id: "gallery", text: "Gallery" },
-        { id: "wishes", text: "Wishes" },
-        { id: "contact", text: "Contact" },
-        { id: "info", text: "Info" },
-        { id: "jeweller", text: "Jeweller" },
-    ];
+    const navItems: NavItems = useMemo(
+        () => [
+            { id: "home", text: "Home", disabled: false },
+            {
+                id: "story",
+                text: "Story",
+                disabled: weddingData.story.disabled,
+            },
+            {
+                id: "details",
+                text: "Details",
+                disabled: weddingData.weddingDetails.disabled,
+            },
+            { id: "schedule", text: "Schedule", disabled: false },
+            { id: "gallery", text: "Gallery", disabled: false },
+            {
+                id: "wishes",
+                text: "Wishes",
+                disabled: weddingData.wishDisabled,
+            },
+            {
+                id: "contact",
+                text: "Contact",
+                disabled: weddingData.contact.disabled,
+            },
+            {
+                id: "info",
+                text: "Info",
+                disabled: weddingData.moreInfo.disabled,
+            },
+            {
+                id: "jeweller",
+                text: "Jeweller",
+                disabled: weddingData.jeweller.disabled,
+            },
+        ],
+        [weddingData],
+    );
 
     const toggleSidebar = useCallback(() => setIsMenuOpen((prev) => !prev), []);
     const closeSidebar = useCallback(() => setIsMenuOpen(false), []);
@@ -86,7 +114,7 @@ export default function Navigation() {
         return () => {
             if (mainObserver.current) mainObserver.current.disconnect();
         };
-    }, []);
+    }, [navItems]);
 
     return (
         <>
@@ -107,25 +135,28 @@ export default function Navigation() {
                         {/* Navigation Links */}
                         <div className="hidden md:block">
                             <div className="ml-10 flex items-baseline space-x-8 font-serif font-medium child-cursor-pointer">
-                                {navItems.slice(0, 7).map(({ id, text }) => (
-                                    <button
-                                        key={id}
-                                        type="button"
-                                        className={cn(
-                                            "text-foreground hover:text-rose-600 transition-colors duration-200 text-sm tracking-wide",
-                                            activeSection === id &&
-                                                "text-rose-600",
-                                        )}
-                                        onClick={() => handleClick(id)}
-                                        onKeyDown={(e) =>
-                                            onEnterKeyDown(e, () =>
-                                                handleClick(id),
-                                            )
-                                        }
-                                    >
-                                        {text}
-                                    </button>
-                                ))}
+                                {navItems
+                                    .slice(0, 7)
+                                    .filter((item) => !item.disabled)
+                                    .map(({ id, text }) => (
+                                        <button
+                                            key={id}
+                                            type="button"
+                                            className={cn(
+                                                "text-foreground hover:text-rose-600 transition-colors duration-200 text-sm tracking-wide",
+                                                activeSection === id &&
+                                                    "text-rose-600",
+                                            )}
+                                            onClick={() => handleClick(id)}
+                                            onKeyDown={(e) =>
+                                                onEnterKeyDown(e, () =>
+                                                    handleClick(id),
+                                                )
+                                            }
+                                        >
+                                            {text}
+                                        </button>
+                                    ))}
                                 {isLoggedIn && (
                                     <Button
                                         type="button"
@@ -194,21 +225,23 @@ export default function Navigation() {
 
                     {/* Sidebar Content */}
                     <div className="flex flex-col p-4 space-y-4">
-                        {navItems.map(({ text, id }) => (
-                            <button
-                                key={`section-${text}`}
-                                onClick={() => handleClick(id)}
-                                type="button"
-                                className={cn(
-                                    "text-left py-3 px-4 rounded-lg text-base font-medium transition-all duration-200",
-                                    activeSection === id
-                                        ? "text-primary bg-primary/10 border-l-4 border-primary"
-                                        : "text-gray-600 hover:text-primary hover:bg-primary/10",
-                                )}
-                            >
-                                {text}
-                            </button>
-                        ))}
+                        {navItems
+                            .filter((item) => !item.disabled)
+                            .map(({ text, id }) => (
+                                <button
+                                    key={`section-${text}`}
+                                    onClick={() => handleClick(id)}
+                                    type="button"
+                                    className={cn(
+                                        "text-left py-3 px-4 rounded-lg text-base font-medium transition-all duration-200",
+                                        activeSection === id
+                                            ? "text-primary bg-primary/10 border-l-4 border-primary"
+                                            : "text-gray-600 hover:text-primary hover:bg-primary/10",
+                                    )}
+                                >
+                                    {text}
+                                </button>
+                            ))}
                         {isLoggedIn && (
                             <>
                                 <hr className="border-gray-200 my-2" />
