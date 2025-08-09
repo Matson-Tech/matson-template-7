@@ -4,7 +4,7 @@ import useWedding from "@/hooks/useWedding";
 const Footer = () => {
     const { weddingData } = useWedding();
     return (
-        <footer className="relative py-8 text-center bg-card border-t-1 border-rose-200 w-full">
+        <footer className="relative py-8 text-center w-full border-2 border-rose-300/10 bg-gradient-to-r from-card/40 to-white/10 bg-clip-padding backdrop-blur-md">
             <div className="container text-primary mx-auto px-4 space-y-4">
                 <div className="inline-flex items-center justify-center space-x-1 font-serif text-xl">
                     <Heart size={20} className="mr-2" />

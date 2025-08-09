@@ -26,6 +26,7 @@ const defaultWeddingData: WeddingData = {
         content:
             "We met on a beautiful autumn day in the local coffee shop. What started as a chance encounter over spilled coffee became the beginning of our forever love story. After three wonderful years together, Alec proposed during a romantic sunset at our favorite beach, and Zola said yes with tears of joy.",
         image: "/couple/white.png",
+        disabled: false,
     },
     weddingDetails: {
         event1: {
@@ -59,6 +60,7 @@ const defaultWeddingData: WeddingData = {
             description:
                 "Help us create the perfect playlist! Send us your song requests and we'll make sure to play your favorites.",
         },
+        disabled: false,
     },
     schedule: [
         {
@@ -106,16 +108,19 @@ const defaultWeddingData: WeddingData = {
             name: null,
         },
     ],
+    wishDisabled: false,
     moreInfo: {
         title: "Additional Information",
         content:
             "For dietary restrictions, please contact us at least one week before the wedding. We will have vegetarian and gluten-free options available. Children are welcome at both the ceremony and reception.",
+        disabled: false,
     },
     contact: {
         phone: "+1 (555) 123-4567",
         email: "wedding@aleczola.com",
         address: "123 Main Street, City, State 12345",
         addressMapLink: "https://maps.app.goo.gl/JDeNeY5MxbVFCeXK6",
+        disabled: false,
     },
     jeweller: {
         title: "Our Wedding Jeweller",
@@ -123,6 +128,7 @@ const defaultWeddingData: WeddingData = {
             "Discover exquisite wedding rings and jewellery collections from our trusted partner.",
         shopName: "Diamond Dreams Jewellers",
         website: "https://www.diamonddreamsjewellers.com",
+        disabled: false,
     },
 };
 

@@ -1,20 +1,16 @@
-import { useContext } from "react";
 import EditableText from "@/components/editable/EditableText";
-import { WeddingContext } from "@/context/WeddingContext";
 import useUpdateStory from "@/hooks/useUpdateStory";
 import useWedding from "@/hooks/useWedding";
 import EditableImage from "../editable/EditableImage";
 
 const OurStorySection: React.FC = () => {
-    const context = useContext(WeddingContext);
-
-    if (!context) {
-        throw new Error("OurStorySection must be used within WeddingProvider");
-    }
-
     const { weddingData } = useWedding();
     const { updateStoryContent, updateStoryImage, updateStoryTitle } =
         useUpdateStory();
+
+    if (weddingData.story.disabled) {
+        return;
+    }
 
     return (
         <section id="story" className="py-20 bg-cream-50 z-20">

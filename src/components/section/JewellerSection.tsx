@@ -1,17 +1,14 @@
+import { ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ExternalLink } from "lucide-react";
-import { useContext } from "react";
-import { WeddingContext } from "@/context/WeddingContext";
+import useWedding from "@/hooks/useWedding";
 
 const JewellerSection: React.FC = () => {
-    const context = useContext(WeddingContext);
+    const { weddingData } = useWedding();
 
-    if (!context) {
-        throw new Error("JewellerSection must be used within WeddingProvider");
+    if (weddingData.jeweller.disabled) {
+        return;
     }
-
-    const { weddingData } = context;
 
     return (
         <section id="jeweller" className="py-20 bg-white">
