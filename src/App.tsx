@@ -5,9 +5,9 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { WeddingProvider } from "@/context/WeddingProvider";
 import Gallery from "./pages/Gallery";
 import Index from "./pages/Index";
+import LoginRoute from "./pages/LoginRoute";
 import NotFound from "./pages/NotFound";
 import Wishes from "./pages/Wishes";
-import LoginRoute from "./pages/LoginRoute";
 
 const queryClient = new QueryClient();
 
