@@ -25,7 +25,7 @@ type NavItems = Array<{
 }>;
 
 export default function Navigation() {
-    const { isLoggedIn, logout, weddingData } = useWedding();
+    const { isLoggedIn, logout, weddingData, user } = useWedding();
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [activeSection, setActiveSection] = useState<NavIds | null>(null);
@@ -79,14 +79,14 @@ export default function Navigation() {
 
     const handleClick = useCallback(
         (id: NavIds) => {
-            if (location.pathname !== "/") {
-                navigate("/", { state: { section: id } });
+            if (user?.username && location.pathname !== `/${user.username}`) {
+                navigate(`/${user.username}`, { state: { section: id } });
                 return;
             }
             scrollToSection(id);
             closeSidebar();
         },
-        [location, navigate, closeSidebar],
+        [location, navigate, closeSidebar, user?.username],
     );
 
     useEffect(() => {
@@ -124,7 +124,7 @@ export default function Navigation() {
                         {/* Logo/Brand */}
                         <div className="shrink-0">
                             <Link
-                                to="/"
+                                to={`/${user?.username}`}
                                 className="font-serif text-2xl text-rose-600"
                             >
                                 {weddingData.couple.groomName} &{" "}

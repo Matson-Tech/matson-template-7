@@ -1,6 +1,8 @@
 import { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import Loading from "@/components/custom/Loading";
 import BackgroundAnimations from "@/components/decorative/BackgroundAnimations";
+import Footer from "@/components/Footer";
 import Navigation, { type NavIds } from "@/components/Navigation";
 import {
     AdditionalInfoSection,
@@ -13,15 +15,17 @@ import {
     ScheduleSection,
     WeddingDetailsSection,
 } from "@/components/section";
-import scrollToSection from "@/lib/scrollToSection";
-import Footer from "@/components/Footer";
-import Loading from "@/components/custom/Loading";
 import useWedding from "@/hooks/useWedding";
+import scrollToSection from "@/lib/scrollToSection";
+import useSyncUsername from "@/hooks/useSyncUsername";
 
 export default function Index() {
     const location = useLocation();
     const navigate = useNavigate();
+    const { username } = useParams();
     const { globalIsLoading } = useWedding();
+
+    useSyncUsername(username);
 
     useEffect(() => {
         const section: NavIds = location.state?.section as NavIds | undefined;

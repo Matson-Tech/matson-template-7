@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { flushSync } from "react-dom";
 import { supabase } from "@/integrations/supabase/client";
 import type { Json } from "@/integrations/supabase/custom-types";
-import type { User, WeddingData, WeddingWish } from "@/types/wedding";
+import type { User, WebEntry, WeddingData, WeddingWish } from "@/types/wedding";
 import { capitalizeWords } from "@/utils/capitalize";
 import deleteImage from "@/utils/deleteImage";
 import uploadImage from "@/utils/UploadImage";
@@ -143,11 +143,6 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [globalIsLoading, setGlobalIsLoading] = useState(true);
 
-    const websiteKey = useMemo(
-        () => import.meta.env.VITE_WEBSITE_KEY || "default",
-        [],
-    );
-
     const documentTitle = useMemo(() => {
         if (globalIsLoading) return;
         const groom = capitalizeWords(weddingData.couple.groomName);
@@ -159,15 +154,25 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
         weddingData.couple.brideName,
     ]);
 
+    // useEffect(() => {
+    //     console.log(user?.username);
+    // }, [user?.username]);
+
     useEffect(() => {
-        const loadWeddingData = async (id: string) => {
+        const loadWeddingData = async (username: string) => {
             try {
                 const { data: weddingData, error: weddingError } =
                     await supabase
                         .from("web_entries")
-                        .select("web_data")
-                        .eq("user_id", id)
-                        .maybeSingle();
+                        .select(
+                            `web_data,
+                            user_profile!inner(
+                                user_id,
+                                username
+                            )`,
+                        )
+                        .eq("user_profile.username", username)
+                        .maybeSingle<WebEntry>();
 
                 if (weddingError) {
                     console.error("Error loading wedding data:", weddingError);
@@ -175,9 +180,16 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
                 }
 
                 if (weddingData?.web_data) {
-                    setWeddingData(
-                        weddingData.web_data as unknown as WeddingData,
-                    );
+                    setWeddingData(weddingData.web_data);
+                }
+
+                const user_id = weddingData?.user_profile?.user_id;
+
+                if (user_id) {
+                    setUser((prev) => ({
+                        ...prev,
+                        id: user_id,
+                    }));
                 }
 
                 if (location.pathname === "/wishes") {
@@ -188,7 +200,7 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
                 const { data: wishData, error: wishError } = await supabase
                     .from("guest_wishes")
                     .select("id, name, message")
-                    .eq("variant", id)
+                    .eq("variant", user_id)
                     .order("created_at", { ascending: false })
                     .limit(3);
 
@@ -205,23 +217,23 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
                 setGlobalIsLoading(false);
             }
         };
+        if (!user?.username) return;
 
         const {
             data: { subscription },
         } = supabase.auth.onAuthStateChange((_, session) => {
             flushSync(() => setSession(session));
-            loadWeddingData(websiteKey);
-
+            loadWeddingData(user.username);
             if (session?.user) {
                 const mappedUser: User = {
                     id: session.user.id,
                     email: session.user.email || "",
+                    username: user.username,
                     isAuthenticated: true,
                 };
                 setUser(mappedUser);
                 setIsLoggedIn(true);
             } else {
-                setUser(null);
                 setIsLoggedIn(false);
             }
         });
@@ -232,16 +244,17 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
                 const mappedUser: User = {
                     id: session.user.id,
                     email: session.user.email || "",
+                    username: user.username,
                     isAuthenticated: true,
                 };
                 setUser(mappedUser);
                 setIsLoggedIn(true);
-                loadWeddingData(import.meta.env.VITE_WEBSITE_KEY || "default");
+                loadWeddingData(user.username);
             }
         });
 
         return () => subscription.unsubscribe();
-    }, [websiteKey]);
+    }, [user?.username]);
 
     useEffect(() => {
         if (documentTitle) {
@@ -250,12 +263,13 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
     }, [documentTitle]);
 
     const loadAllWeddingWishes = useCallback(async () => {
+        if (!user?.id) return;
         setGlobalIsLoading(true);
         try {
             const { data: wishData, error: wishError } = await supabase
                 .from("guest_wishes")
                 .select("id, name, message")
-                .eq("variant", websiteKey)
+                .eq("variant", user?.id)
                 .order("created_at", { ascending: false });
 
             if (wishError) {
@@ -274,7 +288,7 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
         } finally {
             setGlobalIsLoading(false);
         }
-    }, [websiteKey]);
+    }, [user?.id]);
 
     useEffect(() => {
         const wishChannel = supabase.channel("wishes-channel");
@@ -324,7 +338,7 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
             try {
                 const { error } = await supabase.from("web_entries").upsert(
                     {
-                        user_id: user.id,
+                        user_id: user?.id,
                         web_data: data as unknown as Json,
                         updated_at: new Date().toISOString(),
                     },
@@ -412,7 +426,7 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
                 const { error } = await supabase.from("guest_wishes").insert({
                     name: wish.name,
                     message: wish.message,
-                    variant: websiteKey,
+                    variant: user?.id,
                 });
 
                 if (error) {
@@ -425,7 +439,7 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
                 console.log("Error adding new wish", error);
             }
         },
-        [websiteKey],
+        [user?.id],
     );
 
     const login = useCallback(async (email: string, password: string) => {
@@ -447,6 +461,7 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
             setWeddingWishes,
             loadAllWeddingWishes,
             user,
+            setUser,
             session,
             isLoggedIn,
             globalIsLoading,

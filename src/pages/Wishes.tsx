@@ -1,17 +1,21 @@
 import { Heart } from "lucide-react";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import Heading from "@/components/custom/Heading";
+import Loading from "@/components/custom/Loading";
+import Footer from "@/components/Footer";
 import Navigation from "@/components/Navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import useWedding from "@/hooks/useWedding";
-import Heading from "@/components/custom/Heading";
-import Footer from "@/components/Footer";
-import Loading from "@/components/custom/Loading";
+import useSyncUsername from "@/hooks/useSyncUsername";
 
 export default function Wishes() {
     const { weddingWishes, loadAllWeddingWishes, globalIsLoading } =
         useWedding();
+    const { username } = useParams();
+
+    useSyncUsername(username);
 
     useEffect(() => {
         loadAllWeddingWishes();

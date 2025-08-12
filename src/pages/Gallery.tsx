@@ -1,18 +1,22 @@
 import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import Heading from "@/components/custom/Heading";
 import ImageCarousel from "@/components/custom/ImageCarousel";
-import Navigation from "@/components/Navigation";
-import useWedding from "@/hooks/useWedding";
 import Footer from "@/components/Footer";
+import Navigation from "@/components/Navigation";
+import useSyncUsername from "@/hooks/useSyncUsername";
+import useWedding from "@/hooks/useWedding";
 
 export default function Gallery() {
     const { weddingData, isLoggedIn } = useWedding();
+    const { username } = useParams();
 
     const limit = isLoggedIn
         ? import.meta.env.VITE_GALLERY_IMAGE_LIMIT || 12
         : weddingData.gallery.length;
 
-    useEffect(() => window.scrollTo(0, 0));
+    useSyncUsername(username);
+    useEffect(() => window.scrollTo(0, 0), []);
 
     return (
         <div className="flex flex-col min-h-screen bg-white">
