@@ -7,8 +7,8 @@ import Footer from "@/components/Footer";
 import Navigation from "@/components/Navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import useWedding from "@/hooks/useWedding";
 import useSyncUsername from "@/hooks/useSyncUsername";
+import useWedding from "@/hooks/useWedding";
 
 export default function Wishes() {
     const { weddingWishes, loadAllWeddingWishes, globalIsLoading } =

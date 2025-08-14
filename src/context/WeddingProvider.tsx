@@ -2,6 +2,7 @@ import type { Session } from "@supabase/supabase-js";
 import type React from "react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { flushSync } from "react-dom";
+import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import type { Json } from "@/integrations/supabase/custom-types";
 import type { User, WebEntry, WeddingData, WeddingWish } from "@/types/wedding";
@@ -142,6 +143,7 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
     const [session, setSession] = useState<Session | null>(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [globalIsLoading, setGlobalIsLoading] = useState(true);
+    const navigate = useNavigate();
 
     const documentTitle = useMemo(() => {
         if (globalIsLoading) return;
@@ -154,12 +156,15 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
         weddingData.couple.brideName,
     ]);
 
-    // useEffect(() => {
-    //     console.log(user?.username);
-    // }, [user?.username]);
+    useEffect(() => {
+        console.log(user);
+    }, [user]);
 
     useEffect(() => {
-        const loadWeddingData = async (username: string) => {
+        const fetchWeddingData = async (
+            filterField: "user_profile.username" | "user_profile.user_id",
+            value: string,
+        ) => {
             try {
                 const { data: weddingData, error: weddingError } =
                     await supabase
@@ -171,8 +176,19 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
                                 username
                             )`,
                         )
-                        .eq("user_profile.username", username)
+                        .eq(filterField, value)
                         .maybeSingle<WebEntry>();
+                return { weddingData, weddingError };
+            } catch (error) {
+                console.log("Error fetching data: ", error);
+            }
+        };
+        const loadWeddingData = async (username?: string, userId?: string) => {
+            if (!username && !userId) return;
+            try {
+                const { weddingData, weddingError } = username
+                    ? await fetchWeddingData("user_profile.username", username)
+                    : await fetchWeddingData("user_profile.user_id", userId);
 
                 if (weddingError) {
                     console.error("Error loading wedding data:", weddingError);
@@ -181,26 +197,26 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
 
                 if (weddingData?.web_data) {
                     setWeddingData(weddingData.web_data);
+                } else {
+                    navigate("/page/not-found");
                 }
 
-                const user_id = weddingData?.user_profile?.user_id;
+                const currentUserId = weddingData?.user_profile?.user_id;
+                const currentUsername = weddingData?.user_profile?.username;
 
-                if (user_id) {
+                if (user.username !== username || userId !== user.id) {
                     setUser((prev) => ({
                         ...prev,
-                        id: user_id,
+                        id: prev.id || currentUserId,
+                        username: prev.username || currentUsername,
                     }));
                 }
 
-                if (location.pathname === "/wishes") {
-                    setGlobalIsLoading(false);
-                    return;
-                }
-
+                if (location.pathname.startsWith("/wishes/")) return;
                 const { data: wishData, error: wishError } = await supabase
                     .from("guest_wishes")
                     .select("id, name, message")
-                    .eq("variant", user_id)
+                    .eq("variant", currentUserId)
                     .order("created_at", { ascending: false })
                     .limit(3);
 
@@ -217,23 +233,24 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
                 setGlobalIsLoading(false);
             }
         };
-        if (!user?.username) return;
 
         const {
             data: { subscription },
         } = supabase.auth.onAuthStateChange((_, session) => {
             flushSync(() => setSession(session));
-            loadWeddingData(user.username);
             if (session?.user) {
                 const mappedUser: User = {
                     id: session.user.id,
                     email: session.user.email || "",
-                    username: user.username,
+                    username: user?.username || "",
                     isAuthenticated: true,
                 };
+                // console.log(session);
                 setUser(mappedUser);
+                loadWeddingData(user?.username || null, session.user.id);
                 setIsLoggedIn(true);
             } else {
+                loadWeddingData(user?.username);
                 setIsLoggedIn(false);
             }
         });
@@ -244,17 +261,17 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
                 const mappedUser: User = {
                     id: session.user.id,
                     email: session.user.email || "",
-                    username: user.username,
+                    username: user?.username || "",
                     isAuthenticated: true,
                 };
                 setUser(mappedUser);
                 setIsLoggedIn(true);
-                loadWeddingData(user.username);
+                loadWeddingData(user?.username || null, session.user.id);
             }
         });
 
         return () => subscription.unsubscribe();
-    }, [user?.username]);
+    }, [user?.username, user?.id, navigate]);
 
     useEffect(() => {
         if (documentTitle) {

@@ -1,5 +1,5 @@
 import { ArrowLeft, Heart } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -15,7 +15,7 @@ export default function Login() {
 
     const navigate = useNavigate();
 
-    const { login, isLoggedIn } = useWedding();
+    const { login, isLoggedIn, user } = useWedding();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -27,8 +27,6 @@ export default function Login() {
 
             if (error) {
                 setError(error.message || "Login failed");
-            } else {
-                navigate("/");
             }
         } catch (err) {
             setError(`An unexpected error occurred: ${err.message}`);
@@ -36,11 +34,12 @@ export default function Login() {
             setLoading(false);
         }
     };
-
-    if (isLoggedIn) {
-        navigate("/");
-        return;
-    }
+    useEffect(() => {
+        if (isLoggedIn && user?.username) {
+            navigate(`/${user?.username}`);
+            return;
+        }
+    }, [isLoggedIn, user?.username, navigate]);
 
     return (
         <div className="min-h-screen bg-linear-to-br from-blush-50 to-rose-50 flex items-center justify-center p-4">

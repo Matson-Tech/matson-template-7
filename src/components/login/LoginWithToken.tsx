@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import Loading from "@/components/custom/Loading";
+import useWedding from "@/hooks/useWedding";
 import { supabase } from "@/integrations/supabase/client";
 
 interface LoginWithTokenProps {
@@ -14,6 +15,7 @@ const LoginWithToken: React.FC<LoginWithTokenProps> = ({
     refresh_token,
 }) => {
     const navigate = useNavigate();
+    const { user, isLoggedIn } = useWedding();
 
     useEffect(() => {
         let isMounted = true;
@@ -48,7 +50,6 @@ const LoginWithToken: React.FC<LoginWithTokenProps> = ({
                     toast.success("Login successful!", {
                         description: "Welcome back",
                     });
-                    navigate("/");
                 }
             }
         };
@@ -58,7 +59,14 @@ const LoginWithToken: React.FC<LoginWithTokenProps> = ({
         return () => {
             isMounted = false;
         };
-    }, [access_token, refresh_token, navigate]);
+    }, [access_token, refresh_token]);
+
+    useEffect(() => {
+        if (isLoggedIn && user?.username) {
+            navigate(`/${user?.username}`);
+            return;
+        }
+    }, [isLoggedIn, user?.username, navigate]);
 
     return <Loading />;
 };

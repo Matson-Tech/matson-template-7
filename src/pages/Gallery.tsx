@@ -22,7 +22,7 @@ export default function Gallery() {
         <div className="flex flex-col min-h-screen bg-white">
             <Navigation />
 
-            <div className="flex-1 max-w-7xl mx-auto px-4 py-20">
+            <div className="flex-1 max-w-7xl mx-auto px-4 py-20 w-full">
                 <Heading
                     heading="Wedding Gallery"
                     subText={`Capturing beautiful moments of ${weddingData.couple.groomName} & ${weddingData.couple.brideName}`}

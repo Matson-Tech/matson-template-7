@@ -15,9 +15,9 @@ import {
     ScheduleSection,
     WeddingDetailsSection,
 } from "@/components/section";
+import useSyncUsername from "@/hooks/useSyncUsername";
 import useWedding from "@/hooks/useWedding";
 import scrollToSection from "@/lib/scrollToSection";
-import useSyncUsername from "@/hooks/useSyncUsername";
 
 export default function Index() {
     const location = useLocation();

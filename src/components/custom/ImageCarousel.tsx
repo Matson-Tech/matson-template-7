@@ -50,12 +50,13 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ limit }) => {
                     onDelete={() => handleDelete(photo.name, index)}
                     label={`Delete gallery image ${index + 1}`}
                     disabled={photo.name === null}
+                    className="w-full"
                 >
                     <EditableImage
                         onUpdate={updateGalleryImage}
                         index={index}
                         label={`Edit galler image ${index + 1}`}
-                        className="rounded-lg"
+                        className="rounded-lg w-full"
                         imageCaption={photo.caption}
                         ImageCaptionAvailable
                         imageName={photo.name}
