@@ -157,10 +157,6 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
     ]);
 
     useEffect(() => {
-        console.log(user);
-    }, [user]);
-
-    useEffect(() => {
         const fetchWeddingData = async (
             filterField: "user_profile.username" | "user_profile.user_id",
             value: string,
@@ -204,7 +200,7 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
                 const currentUserId = weddingData?.user_profile?.user_id;
                 const currentUsername = weddingData?.user_profile?.username;
 
-                if (user.username !== username || userId !== user.id) {
+                if (user?.username !== username || userId !== user?.id) {
                     setUser((prev) => ({
                         ...prev,
                         id: prev.id || currentUserId,
@@ -245,7 +241,6 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
                     username: user?.username || "",
                     isAuthenticated: true,
                 };
-                // console.log(session);
                 setUser(mappedUser);
                 loadWeddingData(user?.username || null, session.user.id);
                 setIsLoggedIn(true);
