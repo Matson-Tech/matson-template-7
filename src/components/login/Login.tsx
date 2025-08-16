@@ -27,6 +27,8 @@ export default function Login() {
 
             if (error) {
                 setError(error.message || "Login failed");
+            } else {
+                toast.success("Welcome back! You are now logged in!");
             }
         } catch (err) {
             setError(`An unexpected error occurred: ${err.message}`);
@@ -37,7 +39,6 @@ export default function Login() {
     useEffect(() => {
         if (isLoggedIn && user?.username) {
             navigate(`/${user?.username}`);
-            return;
         }
     }, [isLoggedIn, user?.username, navigate]);
 

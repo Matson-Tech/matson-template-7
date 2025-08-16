@@ -64,7 +64,6 @@ const LoginWithToken: React.FC<LoginWithTokenProps> = ({
     useEffect(() => {
         if (isLoggedIn && user?.username) {
             navigate(`/${user?.username}`);
-            return;
         }
     }, [isLoggedIn, user?.username, navigate]);
 
