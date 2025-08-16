@@ -7,7 +7,7 @@ const useSyncUsername = (username: string) => {
     useEffect(() => {
         const cleanusername = username.trim();
         setUser((prev) => {
-            if (!cleanusername && cleanusername === prev?.username) return prev;
+            if (!cleanusername || cleanusername === prev?.username) return prev;
 
             return { ...(prev ?? DEFAULT_USER), username: cleanusername };
         });
