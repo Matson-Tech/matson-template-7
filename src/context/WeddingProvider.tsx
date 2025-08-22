@@ -195,16 +195,16 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
                     return;
                 }
 
-                if (!weddingData.web_data) return;
+                if (weddingData?.web_data) {
+                    setWeddingData(weddingData.web_data);
+                } else {
+                    navigate("/page/not-found");
+                }
 
                 weddingDataCopy = weddingData;
 
                 const currentUserId = weddingData?.user_profile?.user_id;
                 const currentUsername = weddingData?.user_profile?.username;
-
-                usernameCopy = currentUsername;
-
-                setWeddingData(weddingData.web_data);
 
                 if (user?.username !== username || userId !== user?.id) {
                     setUser((prev) => ({
@@ -235,12 +235,8 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
                 const isPurchased = (
                     weddingDataCopy?.user_profile?.purchased_templates ?? []
                 ).includes(templateName);
-                if (
-                    (!isLoggedIn && !isPurchased) ||
-                    !weddingDataCopy?.web_data
-                ) {
-                } else {
-                    setGlobalIsLoading(false);
+                if (isLoggedIn || isPurchased) {
+                    setGlobalIsLoading(true);
                 }
             }
         };
@@ -281,7 +277,7 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
         });
 
         return () => subscription.unsubscribe();
-    }, [user?.username, user?.id, navigate, isLoggedIn]);
+    }, [user?.username, user?.id, isLoggedIn, navigate]);
 
     useEffect(() => {
         if (documentTitle) {
