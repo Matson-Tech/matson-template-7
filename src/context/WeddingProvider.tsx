@@ -235,14 +235,10 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
                 const isPurchased = (
                     weddingDataCopy?.user_profile?.purchased_templates ?? []
                 ).includes(templateName);
-                if (
-                    (!isLoggedIn && !isPurchased) ||
-                    !weddingDataCopy?.web_data
-                ) {
-                    navigate("/page/not-found");
-                } else {
-                    navigate(`/${usernameCopy}`);
+                if ((isLoggedIn && isPurchased) || weddingDataCopy?.web_data) {
                     setGlobalIsLoading(false);
+                } else {
+                    setGlobalIsLoading(true);
                 }
             }
         };
