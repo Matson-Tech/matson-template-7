@@ -236,7 +236,7 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
                     weddingDataCopy?.user_profile?.purchased_templates ?? []
                 ).includes(templateName);
                 if (isLoggedIn || isPurchased) {
-                    setGlobalIsLoading(true);
+                    setGlobalIsLoading(false);
                 }
             }
         };
