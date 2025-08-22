@@ -182,6 +182,9 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
         };
         const loadWeddingData = async (username?: string, userId?: string) => {
             if (!username && !userId) return;
+            const templateName = import.meta.env.VITE_TEMPLATE_NAME;
+            let weddingDataCopy: WebEntry;
+            let usernameCopy: string;
             try {
                 const { weddingData, weddingError } = username
                     ? await fetchWeddingData("user_profile.username", username)
@@ -192,20 +195,14 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
                     return;
                 }
 
-                const templateName = import.meta.env.VITE_TEMPLATE_NAME;
-                const isPurchased = (
-                    weddingData?.user_profile?.purchased_templates ?? []
-                ).includes(templateName);
+                if (!weddingData.web_data) return;
+
+                weddingDataCopy = weddingData;
 
                 const currentUserId = weddingData?.user_profile?.user_id;
                 const currentUsername = weddingData?.user_profile?.username;
 
-                if ((!isLoggedIn && !isPurchased) || !weddingData?.web_data) {
-                    navigate("/page/not-found");
-                    return;
-                } else {
-                    navigate(`/${currentUsername}`);
-                }
+                usernameCopy = currentUsername;
 
                 setWeddingData(weddingData.web_data);
 
@@ -235,7 +232,18 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
             } catch (error) {
                 console.error("Error loading wedding data:", error);
             } finally {
-                setGlobalIsLoading(false);
+                const isPurchased = (
+                    weddingDataCopy?.user_profile?.purchased_templates ?? []
+                ).includes(templateName);
+                if (
+                    (!isLoggedIn && !isPurchased) ||
+                    !weddingDataCopy?.web_data
+                ) {
+                    navigate("/page/not-found");
+                } else {
+                    navigate(`/${usernameCopy}`);
+                    setGlobalIsLoading(false);
+                }
             }
         };
 
