@@ -197,20 +197,17 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
                     weddingData?.user_profile?.purchased_templates ?? []
                 ).includes(templateName);
 
-                console.log(
-                    `!isLogged in: ${!isLoggedIn}`,
-                    `!isPurchased : ${!isPurchased}`,
-                    `!weddingData: ${!weddingData?.web_data}`,
-                );
+                const currentUserId = weddingData?.user_profile?.user_id;
+                const currentUsername = weddingData?.user_profile?.username;
 
                 if ((!isLoggedIn && !isPurchased) || !weddingData?.web_data) {
                     navigate("/page/not-found");
+                    return;
+                } else {
+                    navigate(`/${currentUsername}`);
                 }
 
                 setWeddingData(weddingData.web_data);
-
-                const currentUserId = weddingData?.user_profile?.user_id;
-                const currentUsername = weddingData?.user_profile?.username;
 
                 if (user?.username !== username || userId !== user?.id) {
                     setUser((prev) => ({
