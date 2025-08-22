@@ -235,7 +235,10 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
                 const isPurchased = (
                     weddingDataCopy?.user_profile?.purchased_templates ?? []
                 ).includes(templateName);
-                if ((isLoggedIn && isPurchased) || weddingDataCopy?.web_data) {
+                if (
+                    (!isLoggedIn && !isPurchased) ||
+                    !weddingDataCopy?.web_data
+                ) {
                     setGlobalIsLoading(false);
                 } else {
                     setGlobalIsLoading(true);
