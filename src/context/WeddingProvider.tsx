@@ -202,7 +202,6 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
 
                 if ((!isLoggedIn && !isPurchased) || !weddingData?.web_data) {
                     navigate("/page/not-found");
-                    return;
                 } else {
                     navigate(`/${currentUsername}`);
                 }
