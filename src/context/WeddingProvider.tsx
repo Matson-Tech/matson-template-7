@@ -169,7 +169,8 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
                             `web_data,
                             user_profile!inner(
                                 user_id,
-                                username
+                                username,
+                                purchased_templates
                             )`,
                         )
                         .eq(filterField, value)
@@ -191,11 +192,16 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
                     return;
                 }
 
-                if (weddingData?.web_data) {
-                    setWeddingData(weddingData.web_data);
-                } else {
+                const templateName = import.meta.env.VITE_TEMPLATE_NAME;
+                const isPurchased = (
+                    weddingData?.user_profile?.purchased_templates ?? []
+                ).includes(templateName);
+
+                if ((!isLoggedIn && !isPurchased) || !weddingData?.web_data) {
                     navigate("/page/not-found");
                 }
+
+                setWeddingData(weddingData.web_data);
 
                 const currentUserId = weddingData?.user_profile?.user_id;
                 const currentUsername = weddingData?.user_profile?.username;
@@ -266,7 +272,7 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
         });
 
         return () => subscription.unsubscribe();
-    }, [user?.username, user?.id, navigate]);
+    }, [user?.username, user?.id, navigate, isLoggedIn]);
 
     useEffect(() => {
         if (documentTitle) {
