@@ -197,7 +197,7 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
                     weddingData?.user_profile?.purchased_templates ?? []
                 ).includes(templateName);
 
-                console.log(!isLoggedIn);
+                console.log(!isLoggedIn, !isPurchased, !weddingData?.web_data);
 
                 if ((!isLoggedIn && !isPurchased) || !weddingData?.web_data) {
                     navigate("/page/not-found");
