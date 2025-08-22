@@ -239,7 +239,6 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
                     (!isLoggedIn && !isPurchased) ||
                     !weddingDataCopy?.web_data
                 ) {
-                    setGlobalIsLoading(true);
                 } else {
                     setGlobalIsLoading(false);
                 }
