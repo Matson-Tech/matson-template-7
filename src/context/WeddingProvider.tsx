@@ -286,7 +286,7 @@ export const WeddingProvider: React.FC<{ children: React.ReactNode }> = ({
             isMounted = false;
             subscription.unsubscribe();
         };
-    }, [user?.username, user?.id, isLoggedIn]);
+    }, [navigate, isLoggedIn]);
 
     useEffect(() => {
         if (documentTitle) {
