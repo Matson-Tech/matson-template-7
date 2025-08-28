@@ -1,7 +1,7 @@
 // api/og.ts
 import chromium from "@sparticuz/chromium";
-import puppeteer from "puppeteer-core";
 import dotenv from "dotenv";
+import puppeteer from "puppeteer-core";
 
 export default async function handler(req, res) {
     dotenv.config();
